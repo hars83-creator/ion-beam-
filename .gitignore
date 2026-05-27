@@ -1,0 +1,7 @@
+__pycache__/
+build/
+*.py[cod]
+.venv/
+.DS_Store
+exports/
+*.eps
