@@ -185,7 +185,8 @@ class PhysicsEngine:
         energy_profile = np.clip(energy - energy_loss, 0.0, energy)
         final_energy = float(energy_profile[-1])
         deposited = float(energy - final_energy)
-        mean_let = float(np.trapezoid(total_stopping, depth) / max(range_nm, 1.0))
+        integrate_profile = getattr(np, "trapezoid", np.trapz)
+        mean_let = float(integrate_profile(total_stopping, depth) / max(range_nm, 1.0))
         if parameters.let_kev_nm > 0.0:
             mean_let = 0.65 * mean_let + 0.35 * parameters.let_kev_nm
 

@@ -25,6 +25,18 @@ python -m pip install -r requirements.txt
 
 ## Run Desktop App
 
+First verify that the active Python has Tkinter and scientific packages:
+
+```bash
+python check_environment.py
+```
+
+To also test whether Tk can actually open a window:
+
+```bash
+python check_environment.py --gui
+```
+
 ```bash
 python main.py
 ```
@@ -60,3 +72,12 @@ Then visit `http://localhost:8000/website/`.
 ## Scientific Note
 
 This simulator is designed for education and rapid exploration. It uses explainable semi-empirical formulas and material coefficients to show realistic trends. It should not be treated as a replacement for validated transport codes such as SRIM/TRIM, Geant4, or full binary collision approximation workflows.
+
+## macOS Tkinter Note
+
+If `python main.py` reports that `_tkinter` is missing, use a Python build that includes Tk. The installer from python.org usually includes Tk. With Homebrew Python, install Tk support in the same Python family:
+
+```bash
+brew search python-tk
+brew install python-tk@3.14
+```
