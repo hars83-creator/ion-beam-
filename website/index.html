@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ion Beam Irradiation Simulator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="panel controls">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <div>
+            <h1>Ion Beam Irradiation Simulator</h1>
+            <p>Physics-Based Ion-Matter Interaction Laboratory</p>
+          </div>
+        </div>
+
+        <section class="control-group">
+          <h2>Ion Source</h2>
+          <label>
+            Ion
+            <select id="ion">
+              <option value="H">H+</option>
+              <option value="He">He+</option>
+              <option value="Ar" selected>Ar+</option>
+              <option value="Fe">Fe+</option>
+              <option value="Xe">Xe+</option>
+              <option value="Au">Au+</option>
+            </select>
+          </label>
+          <label>
+            Charge
+            <input id="charge" type="number" min="1" max="8" value="1" />
+          </label>
+          <label>
+            Energy <output id="energyOut">500 keV</output>
+            <input id="energy" type="range" min="20" max="5000" value="500" />
+          </label>
+        </section>
+
+        <section class="control-group">
+          <h2>Target</h2>
+          <label>
+            Material
+            <select id="material">
+              <option value="Iron" selected>Iron</option>
+              <option value="Silicon">Silicon</option>
+              <option value="Alumina">Alumina</option>
+              <option value="PTFE">PTFE</option>
+              <option value="Gold">Gold</option>
+              <option value="Diamond">Diamond</option>
+            </select>
+          </label>
+          <label>
+            Fluence <output id="fluenceOut">1e13 ions/cm^2</output>
+            <input id="fluence" type="range" min="10" max="17" step="0.1" value="13" />
+          </label>
+          <label>
+            Time <output id="timeOut">60 s</output>
+            <input id="time" type="range" min="1" max="1200" value="60" />
+          </label>
+        </section>
+
+        <section class="control-group">
+          <h2>Beam</h2>
+          <label>
+            LET <output id="letOut">0.35 keV/nm</output>
+            <input id="let" type="range" min="0" max="5" step="0.01" value="0.35" />
+          </label>
+          <label>
+            Angle <output id="angleOut">0 deg</output>
+            <input id="angle" type="range" min="0" max="70" value="0" />
+          </label>
+          <label>
+            Spread <output id="spreadOut">4 deg</output>
+            <input id="spread" type="range" min="0" max="24" value="4" />
+          </label>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <div class="top-strip">
+          <div class="mode-tabs" role="tablist" aria-label="simulation mode">
+            <button class="active" id="educational">Educational</button>
+            <button id="research">Research</button>
+          </div>
+          <div class="run-controls">
+            <button id="run">Start</button>
+            <button id="reset">Reset</button>
+          </div>
+        </div>
+
+        <section class="scene-panel">
+          <canvas id="scene" width="1100" height="540"></canvas>
+        </section>
+
+        <section class="metrics" aria-label="calculated outputs">
+          <div><span>Range</span><strong id="rangeMetric">0 nm</strong></div>
+          <div><span>LET</span><strong id="letMetric">0 keV/nm</strong></div>
+          <div><span>Se</span><strong id="seMetric">0</strong></div>
+          <div><span>Sn</span><strong id="snMetric">0</strong></div>
+          <div><span>Defects</span><strong id="defectMetric">0 cm^-3</strong></div>
+          <div><span>Delta T</span><strong id="tempMetric">0 K</strong></div>
+        </section>
+
+        <section class="charts">
+          <canvas id="energyChart" width="520" height="210"></canvas>
+          <canvas id="letChart" width="520" height="210"></canvas>
+        </section>
+      </section>
+
+      <aside class="panel readout">
+        <h2>Material State</h2>
+        <dl id="materialReadout"></dl>
+        <h2>Explanation</h2>
+        <p id="explanation"></p>
+        <h2>Event Log</h2>
+        <ol id="log"></ol>
+      </aside>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
+
