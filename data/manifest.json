@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-06-07T05:01:34.935014+00:00",
+  "databases": {
+    "elements": {
+      "file": "elements.json",
+      "records": 118
+    },
+    "isotopes": {
+      "file": "isotopes.json",
+      "records": 270
+    },
+    "materials": {
+      "file": "materials.json",
+      "records": 121
+    },
+    "materials_metals": {
+      "file": "materials_metals.json",
+      "records": 21
+    },
+    "materials_semiconductors": {
+      "file": "materials_semiconductors.json",
+      "records": 27
+    },
+    "materials_polymers": {
+      "file": "materials_polymers.json",
+      "records": 46
+    },
+    "materials_insulators": {
+      "file": "materials_insulators.json",
+      "records": 19
+    },
+    "materials_alloys": {
+      "file": "materials_alloys.json",
+      "records": 8
+    },
+    "materials_oxides": {
+      "file": "materials_oxides.json",
+      "records": 14
+    },
+    "materials_ceramics": {
+      "file": "materials_ceramics.json",
+      "records": 6
+    },
+    "materials_glasses": {
+      "file": "materials_glasses.json",
+      "records": 4
+    },
+    "materials_composites": {
+      "file": "materials_composites.json",
+      "records": 4
+    },
+    "materials_radiation_resistant": {
+      "file": "materials_radiation_resistant.json",
+      "records": 47
+    }
+  },
+  "extension_note": "Add records to the JSON arrays; application code discovers them at runtime."
+}

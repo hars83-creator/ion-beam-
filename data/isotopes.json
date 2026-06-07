@@ -1,0 +1,2705 @@
+{
+  "schema_version": 1,
+  "isotopes": [
+    {
+      "symbol": "H",
+      "element": "Hydrogen",
+      "atomic_number": 1,
+      "mass_number": 1,
+      "isotope_label": "H-1",
+      "stable": true,
+      "natural_abundance_percent": 99.9885,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "H",
+      "element": "Hydrogen",
+      "atomic_number": 1,
+      "mass_number": 2,
+      "isotope_label": "H-2",
+      "stable": true,
+      "natural_abundance_percent": 0.0115,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "He",
+      "element": "Helium",
+      "atomic_number": 2,
+      "mass_number": 3,
+      "isotope_label": "He-3",
+      "stable": true,
+      "natural_abundance_percent": 0.000137,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "He",
+      "element": "Helium",
+      "atomic_number": 2,
+      "mass_number": 4,
+      "isotope_label": "He-4",
+      "stable": true,
+      "natural_abundance_percent": 99.999863,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Li",
+      "element": "Lithium",
+      "atomic_number": 3,
+      "mass_number": 6,
+      "isotope_label": "Li-6",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Li",
+      "element": "Lithium",
+      "atomic_number": 3,
+      "mass_number": 7,
+      "isotope_label": "Li-7",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Be",
+      "element": "Beryllium",
+      "atomic_number": 4,
+      "mass_number": 9,
+      "isotope_label": "Be-9",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "B",
+      "element": "Boron",
+      "atomic_number": 5,
+      "mass_number": 10,
+      "isotope_label": "B-10",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "B",
+      "element": "Boron",
+      "atomic_number": 5,
+      "mass_number": 11,
+      "isotope_label": "B-11",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "C",
+      "element": "Carbon",
+      "atomic_number": 6,
+      "mass_number": 12,
+      "isotope_label": "C-12",
+      "stable": true,
+      "natural_abundance_percent": 98.93,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "C",
+      "element": "Carbon",
+      "atomic_number": 6,
+      "mass_number": 13,
+      "isotope_label": "C-13",
+      "stable": true,
+      "natural_abundance_percent": 1.07,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "N",
+      "element": "Nitrogen",
+      "atomic_number": 7,
+      "mass_number": 14,
+      "isotope_label": "N-14",
+      "stable": true,
+      "natural_abundance_percent": 99.636,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "N",
+      "element": "Nitrogen",
+      "atomic_number": 7,
+      "mass_number": 15,
+      "isotope_label": "N-15",
+      "stable": true,
+      "natural_abundance_percent": 0.364,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "O",
+      "element": "Oxygen",
+      "atomic_number": 8,
+      "mass_number": 16,
+      "isotope_label": "O-16",
+      "stable": true,
+      "natural_abundance_percent": 99.757,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "O",
+      "element": "Oxygen",
+      "atomic_number": 8,
+      "mass_number": 17,
+      "isotope_label": "O-17",
+      "stable": true,
+      "natural_abundance_percent": 0.038,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "O",
+      "element": "Oxygen",
+      "atomic_number": 8,
+      "mass_number": 18,
+      "isotope_label": "O-18",
+      "stable": true,
+      "natural_abundance_percent": 0.205,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "F",
+      "element": "Fluorine",
+      "atomic_number": 9,
+      "mass_number": 19,
+      "isotope_label": "F-19",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ne",
+      "element": "Neon",
+      "atomic_number": 10,
+      "mass_number": 20,
+      "isotope_label": "Ne-20",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ne",
+      "element": "Neon",
+      "atomic_number": 10,
+      "mass_number": 21,
+      "isotope_label": "Ne-21",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ne",
+      "element": "Neon",
+      "atomic_number": 10,
+      "mass_number": 22,
+      "isotope_label": "Ne-22",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Na",
+      "element": "Sodium",
+      "atomic_number": 11,
+      "mass_number": 23,
+      "isotope_label": "Na-23",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Mg",
+      "element": "Magnesium",
+      "atomic_number": 12,
+      "mass_number": 24,
+      "isotope_label": "Mg-24",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Mg",
+      "element": "Magnesium",
+      "atomic_number": 12,
+      "mass_number": 25,
+      "isotope_label": "Mg-25",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Mg",
+      "element": "Magnesium",
+      "atomic_number": 12,
+      "mass_number": 26,
+      "isotope_label": "Mg-26",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Al",
+      "element": "Aluminium",
+      "atomic_number": 13,
+      "mass_number": 27,
+      "isotope_label": "Al-27",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Si",
+      "element": "Silicon",
+      "atomic_number": 14,
+      "mass_number": 28,
+      "isotope_label": "Si-28",
+      "stable": true,
+      "natural_abundance_percent": 92.223,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Si",
+      "element": "Silicon",
+      "atomic_number": 14,
+      "mass_number": 29,
+      "isotope_label": "Si-29",
+      "stable": true,
+      "natural_abundance_percent": 4.685,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Si",
+      "element": "Silicon",
+      "atomic_number": 14,
+      "mass_number": 30,
+      "isotope_label": "Si-30",
+      "stable": true,
+      "natural_abundance_percent": 3.092,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "P",
+      "element": "Phosphorus",
+      "atomic_number": 15,
+      "mass_number": 31,
+      "isotope_label": "P-31",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "S",
+      "element": "Sulfur",
+      "atomic_number": 16,
+      "mass_number": 32,
+      "isotope_label": "S-32",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "S",
+      "element": "Sulfur",
+      "atomic_number": 16,
+      "mass_number": 33,
+      "isotope_label": "S-33",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "S",
+      "element": "Sulfur",
+      "atomic_number": 16,
+      "mass_number": 34,
+      "isotope_label": "S-34",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "S",
+      "element": "Sulfur",
+      "atomic_number": 16,
+      "mass_number": 36,
+      "isotope_label": "S-36",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cl",
+      "element": "Chlorine",
+      "atomic_number": 17,
+      "mass_number": 35,
+      "isotope_label": "Cl-35",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cl",
+      "element": "Chlorine",
+      "atomic_number": 17,
+      "mass_number": 37,
+      "isotope_label": "Cl-37",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ar",
+      "element": "Argon",
+      "atomic_number": 18,
+      "mass_number": 36,
+      "isotope_label": "Ar-36",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ar",
+      "element": "Argon",
+      "atomic_number": 18,
+      "mass_number": 38,
+      "isotope_label": "Ar-38",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ar",
+      "element": "Argon",
+      "atomic_number": 18,
+      "mass_number": 40,
+      "isotope_label": "Ar-40",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "K",
+      "element": "Potassium",
+      "atomic_number": 19,
+      "mass_number": 39,
+      "isotope_label": "K-39",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "K",
+      "element": "Potassium",
+      "atomic_number": 19,
+      "mass_number": 41,
+      "isotope_label": "K-41",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ca",
+      "element": "Calcium",
+      "atomic_number": 20,
+      "mass_number": 40,
+      "isotope_label": "Ca-40",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ca",
+      "element": "Calcium",
+      "atomic_number": 20,
+      "mass_number": 42,
+      "isotope_label": "Ca-42",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ca",
+      "element": "Calcium",
+      "atomic_number": 20,
+      "mass_number": 43,
+      "isotope_label": "Ca-43",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ca",
+      "element": "Calcium",
+      "atomic_number": 20,
+      "mass_number": 44,
+      "isotope_label": "Ca-44",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ca",
+      "element": "Calcium",
+      "atomic_number": 20,
+      "mass_number": 46,
+      "isotope_label": "Ca-46",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ca",
+      "element": "Calcium",
+      "atomic_number": 20,
+      "mass_number": 48,
+      "isotope_label": "Ca-48",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sc",
+      "element": "Scandium",
+      "atomic_number": 21,
+      "mass_number": 45,
+      "isotope_label": "Sc-45",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ti",
+      "element": "Titanium",
+      "atomic_number": 22,
+      "mass_number": 46,
+      "isotope_label": "Ti-46",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ti",
+      "element": "Titanium",
+      "atomic_number": 22,
+      "mass_number": 47,
+      "isotope_label": "Ti-47",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ti",
+      "element": "Titanium",
+      "atomic_number": 22,
+      "mass_number": 48,
+      "isotope_label": "Ti-48",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ti",
+      "element": "Titanium",
+      "atomic_number": 22,
+      "mass_number": 49,
+      "isotope_label": "Ti-49",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ti",
+      "element": "Titanium",
+      "atomic_number": 22,
+      "mass_number": 50,
+      "isotope_label": "Ti-50",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "V",
+      "element": "Vanadium",
+      "atomic_number": 23,
+      "mass_number": 51,
+      "isotope_label": "V-51",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cr",
+      "element": "Chromium",
+      "atomic_number": 24,
+      "mass_number": 50,
+      "isotope_label": "Cr-50",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cr",
+      "element": "Chromium",
+      "atomic_number": 24,
+      "mass_number": 52,
+      "isotope_label": "Cr-52",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cr",
+      "element": "Chromium",
+      "atomic_number": 24,
+      "mass_number": 53,
+      "isotope_label": "Cr-53",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cr",
+      "element": "Chromium",
+      "atomic_number": 24,
+      "mass_number": 54,
+      "isotope_label": "Cr-54",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Mn",
+      "element": "Manganese",
+      "atomic_number": 25,
+      "mass_number": 55,
+      "isotope_label": "Mn-55",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Fe",
+      "element": "Iron",
+      "atomic_number": 26,
+      "mass_number": 54,
+      "isotope_label": "Fe-54",
+      "stable": true,
+      "natural_abundance_percent": 5.845,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Fe",
+      "element": "Iron",
+      "atomic_number": 26,
+      "mass_number": 56,
+      "isotope_label": "Fe-56",
+      "stable": true,
+      "natural_abundance_percent": 91.754,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Fe",
+      "element": "Iron",
+      "atomic_number": 26,
+      "mass_number": 57,
+      "isotope_label": "Fe-57",
+      "stable": true,
+      "natural_abundance_percent": 2.119,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Fe",
+      "element": "Iron",
+      "atomic_number": 26,
+      "mass_number": 58,
+      "isotope_label": "Fe-58",
+      "stable": true,
+      "natural_abundance_percent": 0.282,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Co",
+      "element": "Cobalt",
+      "atomic_number": 27,
+      "mass_number": 59,
+      "isotope_label": "Co-59",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ni",
+      "element": "Nickel",
+      "atomic_number": 28,
+      "mass_number": 58,
+      "isotope_label": "Ni-58",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ni",
+      "element": "Nickel",
+      "atomic_number": 28,
+      "mass_number": 60,
+      "isotope_label": "Ni-60",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ni",
+      "element": "Nickel",
+      "atomic_number": 28,
+      "mass_number": 61,
+      "isotope_label": "Ni-61",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ni",
+      "element": "Nickel",
+      "atomic_number": 28,
+      "mass_number": 62,
+      "isotope_label": "Ni-62",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ni",
+      "element": "Nickel",
+      "atomic_number": 28,
+      "mass_number": 64,
+      "isotope_label": "Ni-64",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cu",
+      "element": "Copper",
+      "atomic_number": 29,
+      "mass_number": 63,
+      "isotope_label": "Cu-63",
+      "stable": true,
+      "natural_abundance_percent": 69.15,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cu",
+      "element": "Copper",
+      "atomic_number": 29,
+      "mass_number": 65,
+      "isotope_label": "Cu-65",
+      "stable": true,
+      "natural_abundance_percent": 30.85,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Zn",
+      "element": "Zinc",
+      "atomic_number": 30,
+      "mass_number": 64,
+      "isotope_label": "Zn-64",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Zn",
+      "element": "Zinc",
+      "atomic_number": 30,
+      "mass_number": 66,
+      "isotope_label": "Zn-66",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Zn",
+      "element": "Zinc",
+      "atomic_number": 30,
+      "mass_number": 67,
+      "isotope_label": "Zn-67",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Zn",
+      "element": "Zinc",
+      "atomic_number": 30,
+      "mass_number": 68,
+      "isotope_label": "Zn-68",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Zn",
+      "element": "Zinc",
+      "atomic_number": 30,
+      "mass_number": 70,
+      "isotope_label": "Zn-70",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ga",
+      "element": "Gallium",
+      "atomic_number": 31,
+      "mass_number": 69,
+      "isotope_label": "Ga-69",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ga",
+      "element": "Gallium",
+      "atomic_number": 31,
+      "mass_number": 71,
+      "isotope_label": "Ga-71",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ge",
+      "element": "Germanium",
+      "atomic_number": 32,
+      "mass_number": 70,
+      "isotope_label": "Ge-70",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ge",
+      "element": "Germanium",
+      "atomic_number": 32,
+      "mass_number": 72,
+      "isotope_label": "Ge-72",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ge",
+      "element": "Germanium",
+      "atomic_number": 32,
+      "mass_number": 73,
+      "isotope_label": "Ge-73",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ge",
+      "element": "Germanium",
+      "atomic_number": 32,
+      "mass_number": 74,
+      "isotope_label": "Ge-74",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ge",
+      "element": "Germanium",
+      "atomic_number": 32,
+      "mass_number": 76,
+      "isotope_label": "Ge-76",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "As",
+      "element": "Arsenic",
+      "atomic_number": 33,
+      "mass_number": 75,
+      "isotope_label": "As-75",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Se",
+      "element": "Selenium",
+      "atomic_number": 34,
+      "mass_number": 74,
+      "isotope_label": "Se-74",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Se",
+      "element": "Selenium",
+      "atomic_number": 34,
+      "mass_number": 76,
+      "isotope_label": "Se-76",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Se",
+      "element": "Selenium",
+      "atomic_number": 34,
+      "mass_number": 77,
+      "isotope_label": "Se-77",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Se",
+      "element": "Selenium",
+      "atomic_number": 34,
+      "mass_number": 78,
+      "isotope_label": "Se-78",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Se",
+      "element": "Selenium",
+      "atomic_number": 34,
+      "mass_number": 80,
+      "isotope_label": "Se-80",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Se",
+      "element": "Selenium",
+      "atomic_number": 34,
+      "mass_number": 82,
+      "isotope_label": "Se-82",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Br",
+      "element": "Bromine",
+      "atomic_number": 35,
+      "mass_number": 79,
+      "isotope_label": "Br-79",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Br",
+      "element": "Bromine",
+      "atomic_number": 35,
+      "mass_number": 81,
+      "isotope_label": "Br-81",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Kr",
+      "element": "Krypton",
+      "atomic_number": 36,
+      "mass_number": 78,
+      "isotope_label": "Kr-78",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Kr",
+      "element": "Krypton",
+      "atomic_number": 36,
+      "mass_number": 80,
+      "isotope_label": "Kr-80",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Kr",
+      "element": "Krypton",
+      "atomic_number": 36,
+      "mass_number": 82,
+      "isotope_label": "Kr-82",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Kr",
+      "element": "Krypton",
+      "atomic_number": 36,
+      "mass_number": 83,
+      "isotope_label": "Kr-83",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Kr",
+      "element": "Krypton",
+      "atomic_number": 36,
+      "mass_number": 84,
+      "isotope_label": "Kr-84",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Kr",
+      "element": "Krypton",
+      "atomic_number": 36,
+      "mass_number": 86,
+      "isotope_label": "Kr-86",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Rb",
+      "element": "Rubidium",
+      "atomic_number": 37,
+      "mass_number": 85,
+      "isotope_label": "Rb-85",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sr",
+      "element": "Strontium",
+      "atomic_number": 38,
+      "mass_number": 84,
+      "isotope_label": "Sr-84",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sr",
+      "element": "Strontium",
+      "atomic_number": 38,
+      "mass_number": 86,
+      "isotope_label": "Sr-86",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sr",
+      "element": "Strontium",
+      "atomic_number": 38,
+      "mass_number": 87,
+      "isotope_label": "Sr-87",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sr",
+      "element": "Strontium",
+      "atomic_number": 38,
+      "mass_number": 88,
+      "isotope_label": "Sr-88",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Y",
+      "element": "Yttrium",
+      "atomic_number": 39,
+      "mass_number": 89,
+      "isotope_label": "Y-89",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Zr",
+      "element": "Zirconium",
+      "atomic_number": 40,
+      "mass_number": 90,
+      "isotope_label": "Zr-90",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Zr",
+      "element": "Zirconium",
+      "atomic_number": 40,
+      "mass_number": 91,
+      "isotope_label": "Zr-91",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Zr",
+      "element": "Zirconium",
+      "atomic_number": 40,
+      "mass_number": 92,
+      "isotope_label": "Zr-92",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Zr",
+      "element": "Zirconium",
+      "atomic_number": 40,
+      "mass_number": 94,
+      "isotope_label": "Zr-94",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Zr",
+      "element": "Zirconium",
+      "atomic_number": 40,
+      "mass_number": 96,
+      "isotope_label": "Zr-96",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Nb",
+      "element": "Niobium",
+      "atomic_number": 41,
+      "mass_number": 93,
+      "isotope_label": "Nb-93",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Mo",
+      "element": "Molybdenum",
+      "atomic_number": 42,
+      "mass_number": 92,
+      "isotope_label": "Mo-92",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Mo",
+      "element": "Molybdenum",
+      "atomic_number": 42,
+      "mass_number": 94,
+      "isotope_label": "Mo-94",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Mo",
+      "element": "Molybdenum",
+      "atomic_number": 42,
+      "mass_number": 95,
+      "isotope_label": "Mo-95",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Mo",
+      "element": "Molybdenum",
+      "atomic_number": 42,
+      "mass_number": 96,
+      "isotope_label": "Mo-96",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Mo",
+      "element": "Molybdenum",
+      "atomic_number": 42,
+      "mass_number": 97,
+      "isotope_label": "Mo-97",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Mo",
+      "element": "Molybdenum",
+      "atomic_number": 42,
+      "mass_number": 98,
+      "isotope_label": "Mo-98",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Mo",
+      "element": "Molybdenum",
+      "atomic_number": 42,
+      "mass_number": 100,
+      "isotope_label": "Mo-100",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ru",
+      "element": "Ruthenium",
+      "atomic_number": 44,
+      "mass_number": 96,
+      "isotope_label": "Ru-96",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ru",
+      "element": "Ruthenium",
+      "atomic_number": 44,
+      "mass_number": 98,
+      "isotope_label": "Ru-98",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ru",
+      "element": "Ruthenium",
+      "atomic_number": 44,
+      "mass_number": 99,
+      "isotope_label": "Ru-99",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ru",
+      "element": "Ruthenium",
+      "atomic_number": 44,
+      "mass_number": 100,
+      "isotope_label": "Ru-100",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ru",
+      "element": "Ruthenium",
+      "atomic_number": 44,
+      "mass_number": 101,
+      "isotope_label": "Ru-101",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ru",
+      "element": "Ruthenium",
+      "atomic_number": 44,
+      "mass_number": 102,
+      "isotope_label": "Ru-102",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ru",
+      "element": "Ruthenium",
+      "atomic_number": 44,
+      "mass_number": 104,
+      "isotope_label": "Ru-104",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Rh",
+      "element": "Rhodium",
+      "atomic_number": 45,
+      "mass_number": 103,
+      "isotope_label": "Rh-103",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pd",
+      "element": "Palladium",
+      "atomic_number": 46,
+      "mass_number": 102,
+      "isotope_label": "Pd-102",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pd",
+      "element": "Palladium",
+      "atomic_number": 46,
+      "mass_number": 104,
+      "isotope_label": "Pd-104",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pd",
+      "element": "Palladium",
+      "atomic_number": 46,
+      "mass_number": 105,
+      "isotope_label": "Pd-105",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pd",
+      "element": "Palladium",
+      "atomic_number": 46,
+      "mass_number": 106,
+      "isotope_label": "Pd-106",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pd",
+      "element": "Palladium",
+      "atomic_number": 46,
+      "mass_number": 108,
+      "isotope_label": "Pd-108",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pd",
+      "element": "Palladium",
+      "atomic_number": 46,
+      "mass_number": 110,
+      "isotope_label": "Pd-110",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ag",
+      "element": "Silver",
+      "atomic_number": 47,
+      "mass_number": 107,
+      "isotope_label": "Ag-107",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ag",
+      "element": "Silver",
+      "atomic_number": 47,
+      "mass_number": 109,
+      "isotope_label": "Ag-109",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cd",
+      "element": "Cadmium",
+      "atomic_number": 48,
+      "mass_number": 106,
+      "isotope_label": "Cd-106",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cd",
+      "element": "Cadmium",
+      "atomic_number": 48,
+      "mass_number": 108,
+      "isotope_label": "Cd-108",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cd",
+      "element": "Cadmium",
+      "atomic_number": 48,
+      "mass_number": 110,
+      "isotope_label": "Cd-110",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cd",
+      "element": "Cadmium",
+      "atomic_number": 48,
+      "mass_number": 111,
+      "isotope_label": "Cd-111",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cd",
+      "element": "Cadmium",
+      "atomic_number": 48,
+      "mass_number": 112,
+      "isotope_label": "Cd-112",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cd",
+      "element": "Cadmium",
+      "atomic_number": 48,
+      "mass_number": 113,
+      "isotope_label": "Cd-113",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cd",
+      "element": "Cadmium",
+      "atomic_number": 48,
+      "mass_number": 114,
+      "isotope_label": "Cd-114",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cd",
+      "element": "Cadmium",
+      "atomic_number": 48,
+      "mass_number": 116,
+      "isotope_label": "Cd-116",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "In",
+      "element": "Indium",
+      "atomic_number": 49,
+      "mass_number": 113,
+      "isotope_label": "In-113",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sn",
+      "element": "Tin",
+      "atomic_number": 50,
+      "mass_number": 112,
+      "isotope_label": "Sn-112",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sn",
+      "element": "Tin",
+      "atomic_number": 50,
+      "mass_number": 114,
+      "isotope_label": "Sn-114",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sn",
+      "element": "Tin",
+      "atomic_number": 50,
+      "mass_number": 115,
+      "isotope_label": "Sn-115",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sn",
+      "element": "Tin",
+      "atomic_number": 50,
+      "mass_number": 116,
+      "isotope_label": "Sn-116",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sn",
+      "element": "Tin",
+      "atomic_number": 50,
+      "mass_number": 117,
+      "isotope_label": "Sn-117",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sn",
+      "element": "Tin",
+      "atomic_number": 50,
+      "mass_number": 118,
+      "isotope_label": "Sn-118",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sn",
+      "element": "Tin",
+      "atomic_number": 50,
+      "mass_number": 119,
+      "isotope_label": "Sn-119",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sn",
+      "element": "Tin",
+      "atomic_number": 50,
+      "mass_number": 120,
+      "isotope_label": "Sn-120",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sn",
+      "element": "Tin",
+      "atomic_number": 50,
+      "mass_number": 122,
+      "isotope_label": "Sn-122",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sn",
+      "element": "Tin",
+      "atomic_number": 50,
+      "mass_number": 124,
+      "isotope_label": "Sn-124",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sb",
+      "element": "Antimony",
+      "atomic_number": 51,
+      "mass_number": 121,
+      "isotope_label": "Sb-121",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sb",
+      "element": "Antimony",
+      "atomic_number": 51,
+      "mass_number": 123,
+      "isotope_label": "Sb-123",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Te",
+      "element": "Tellurium",
+      "atomic_number": 52,
+      "mass_number": 120,
+      "isotope_label": "Te-120",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Te",
+      "element": "Tellurium",
+      "atomic_number": 52,
+      "mass_number": 122,
+      "isotope_label": "Te-122",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Te",
+      "element": "Tellurium",
+      "atomic_number": 52,
+      "mass_number": 123,
+      "isotope_label": "Te-123",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Te",
+      "element": "Tellurium",
+      "atomic_number": 52,
+      "mass_number": 124,
+      "isotope_label": "Te-124",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Te",
+      "element": "Tellurium",
+      "atomic_number": 52,
+      "mass_number": 125,
+      "isotope_label": "Te-125",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Te",
+      "element": "Tellurium",
+      "atomic_number": 52,
+      "mass_number": 126,
+      "isotope_label": "Te-126",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Te",
+      "element": "Tellurium",
+      "atomic_number": 52,
+      "mass_number": 128,
+      "isotope_label": "Te-128",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Te",
+      "element": "Tellurium",
+      "atomic_number": 52,
+      "mass_number": 130,
+      "isotope_label": "Te-130",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "I",
+      "element": "Iodine",
+      "atomic_number": 53,
+      "mass_number": 127,
+      "isotope_label": "I-127",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Xe",
+      "element": "Xenon",
+      "atomic_number": 54,
+      "mass_number": 124,
+      "isotope_label": "Xe-124",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Xe",
+      "element": "Xenon",
+      "atomic_number": 54,
+      "mass_number": 126,
+      "isotope_label": "Xe-126",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Xe",
+      "element": "Xenon",
+      "atomic_number": 54,
+      "mass_number": 128,
+      "isotope_label": "Xe-128",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Xe",
+      "element": "Xenon",
+      "atomic_number": 54,
+      "mass_number": 129,
+      "isotope_label": "Xe-129",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Xe",
+      "element": "Xenon",
+      "atomic_number": 54,
+      "mass_number": 130,
+      "isotope_label": "Xe-130",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Xe",
+      "element": "Xenon",
+      "atomic_number": 54,
+      "mass_number": 131,
+      "isotope_label": "Xe-131",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Xe",
+      "element": "Xenon",
+      "atomic_number": 54,
+      "mass_number": 132,
+      "isotope_label": "Xe-132",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Xe",
+      "element": "Xenon",
+      "atomic_number": 54,
+      "mass_number": 134,
+      "isotope_label": "Xe-134",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Xe",
+      "element": "Xenon",
+      "atomic_number": 54,
+      "mass_number": 136,
+      "isotope_label": "Xe-136",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Cs",
+      "element": "Cesium",
+      "atomic_number": 55,
+      "mass_number": 133,
+      "isotope_label": "Cs-133",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ba",
+      "element": "Barium",
+      "atomic_number": 56,
+      "mass_number": 130,
+      "isotope_label": "Ba-130",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ba",
+      "element": "Barium",
+      "atomic_number": 56,
+      "mass_number": 132,
+      "isotope_label": "Ba-132",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ba",
+      "element": "Barium",
+      "atomic_number": 56,
+      "mass_number": 134,
+      "isotope_label": "Ba-134",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ba",
+      "element": "Barium",
+      "atomic_number": 56,
+      "mass_number": 135,
+      "isotope_label": "Ba-135",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ba",
+      "element": "Barium",
+      "atomic_number": 56,
+      "mass_number": 136,
+      "isotope_label": "Ba-136",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ba",
+      "element": "Barium",
+      "atomic_number": 56,
+      "mass_number": 137,
+      "isotope_label": "Ba-137",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ba",
+      "element": "Barium",
+      "atomic_number": 56,
+      "mass_number": 138,
+      "isotope_label": "Ba-138",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "La",
+      "element": "Lanthanum",
+      "atomic_number": 57,
+      "mass_number": 139,
+      "isotope_label": "La-139",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ce",
+      "element": "Cerium",
+      "atomic_number": 58,
+      "mass_number": 136,
+      "isotope_label": "Ce-136",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ce",
+      "element": "Cerium",
+      "atomic_number": 58,
+      "mass_number": 138,
+      "isotope_label": "Ce-138",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ce",
+      "element": "Cerium",
+      "atomic_number": 58,
+      "mass_number": 140,
+      "isotope_label": "Ce-140",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ce",
+      "element": "Cerium",
+      "atomic_number": 58,
+      "mass_number": 142,
+      "isotope_label": "Ce-142",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pr",
+      "element": "Praseodymium",
+      "atomic_number": 59,
+      "mass_number": 141,
+      "isotope_label": "Pr-141",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Nd",
+      "element": "Neodymium",
+      "atomic_number": 60,
+      "mass_number": 142,
+      "isotope_label": "Nd-142",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Nd",
+      "element": "Neodymium",
+      "atomic_number": 60,
+      "mass_number": 143,
+      "isotope_label": "Nd-143",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Nd",
+      "element": "Neodymium",
+      "atomic_number": 60,
+      "mass_number": 145,
+      "isotope_label": "Nd-145",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Nd",
+      "element": "Neodymium",
+      "atomic_number": 60,
+      "mass_number": 146,
+      "isotope_label": "Nd-146",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Nd",
+      "element": "Neodymium",
+      "atomic_number": 60,
+      "mass_number": 148,
+      "isotope_label": "Nd-148",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Nd",
+      "element": "Neodymium",
+      "atomic_number": 60,
+      "mass_number": 150,
+      "isotope_label": "Nd-150",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sm",
+      "element": "Samarium",
+      "atomic_number": 62,
+      "mass_number": 144,
+      "isotope_label": "Sm-144",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sm",
+      "element": "Samarium",
+      "atomic_number": 62,
+      "mass_number": 149,
+      "isotope_label": "Sm-149",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sm",
+      "element": "Samarium",
+      "atomic_number": 62,
+      "mass_number": 150,
+      "isotope_label": "Sm-150",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sm",
+      "element": "Samarium",
+      "atomic_number": 62,
+      "mass_number": 152,
+      "isotope_label": "Sm-152",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Sm",
+      "element": "Samarium",
+      "atomic_number": 62,
+      "mass_number": 154,
+      "isotope_label": "Sm-154",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Eu",
+      "element": "Europium",
+      "atomic_number": 63,
+      "mass_number": 151,
+      "isotope_label": "Eu-151",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Eu",
+      "element": "Europium",
+      "atomic_number": 63,
+      "mass_number": 153,
+      "isotope_label": "Eu-153",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Gd",
+      "element": "Gadolinium",
+      "atomic_number": 64,
+      "mass_number": 154,
+      "isotope_label": "Gd-154",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Gd",
+      "element": "Gadolinium",
+      "atomic_number": 64,
+      "mass_number": 155,
+      "isotope_label": "Gd-155",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Gd",
+      "element": "Gadolinium",
+      "atomic_number": 64,
+      "mass_number": 156,
+      "isotope_label": "Gd-156",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Gd",
+      "element": "Gadolinium",
+      "atomic_number": 64,
+      "mass_number": 157,
+      "isotope_label": "Gd-157",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Gd",
+      "element": "Gadolinium",
+      "atomic_number": 64,
+      "mass_number": 158,
+      "isotope_label": "Gd-158",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Gd",
+      "element": "Gadolinium",
+      "atomic_number": 64,
+      "mass_number": 160,
+      "isotope_label": "Gd-160",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Tb",
+      "element": "Terbium",
+      "atomic_number": 65,
+      "mass_number": 159,
+      "isotope_label": "Tb-159",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Dy",
+      "element": "Dysprosium",
+      "atomic_number": 66,
+      "mass_number": 156,
+      "isotope_label": "Dy-156",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Dy",
+      "element": "Dysprosium",
+      "atomic_number": 66,
+      "mass_number": 158,
+      "isotope_label": "Dy-158",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Dy",
+      "element": "Dysprosium",
+      "atomic_number": 66,
+      "mass_number": 160,
+      "isotope_label": "Dy-160",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Dy",
+      "element": "Dysprosium",
+      "atomic_number": 66,
+      "mass_number": 161,
+      "isotope_label": "Dy-161",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Dy",
+      "element": "Dysprosium",
+      "atomic_number": 66,
+      "mass_number": 162,
+      "isotope_label": "Dy-162",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Dy",
+      "element": "Dysprosium",
+      "atomic_number": 66,
+      "mass_number": 163,
+      "isotope_label": "Dy-163",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Dy",
+      "element": "Dysprosium",
+      "atomic_number": 66,
+      "mass_number": 164,
+      "isotope_label": "Dy-164",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ho",
+      "element": "Holmium",
+      "atomic_number": 67,
+      "mass_number": 165,
+      "isotope_label": "Ho-165",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Er",
+      "element": "Erbium",
+      "atomic_number": 68,
+      "mass_number": 162,
+      "isotope_label": "Er-162",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Er",
+      "element": "Erbium",
+      "atomic_number": 68,
+      "mass_number": 164,
+      "isotope_label": "Er-164",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Er",
+      "element": "Erbium",
+      "atomic_number": 68,
+      "mass_number": 166,
+      "isotope_label": "Er-166",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Er",
+      "element": "Erbium",
+      "atomic_number": 68,
+      "mass_number": 167,
+      "isotope_label": "Er-167",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Er",
+      "element": "Erbium",
+      "atomic_number": 68,
+      "mass_number": 168,
+      "isotope_label": "Er-168",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Er",
+      "element": "Erbium",
+      "atomic_number": 68,
+      "mass_number": 170,
+      "isotope_label": "Er-170",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Tm",
+      "element": "Thulium",
+      "atomic_number": 69,
+      "mass_number": 169,
+      "isotope_label": "Tm-169",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Yb",
+      "element": "Ytterbium",
+      "atomic_number": 70,
+      "mass_number": 168,
+      "isotope_label": "Yb-168",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Yb",
+      "element": "Ytterbium",
+      "atomic_number": 70,
+      "mass_number": 170,
+      "isotope_label": "Yb-170",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Yb",
+      "element": "Ytterbium",
+      "atomic_number": 70,
+      "mass_number": 171,
+      "isotope_label": "Yb-171",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Yb",
+      "element": "Ytterbium",
+      "atomic_number": 70,
+      "mass_number": 172,
+      "isotope_label": "Yb-172",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Yb",
+      "element": "Ytterbium",
+      "atomic_number": 70,
+      "mass_number": 173,
+      "isotope_label": "Yb-173",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Yb",
+      "element": "Ytterbium",
+      "atomic_number": 70,
+      "mass_number": 174,
+      "isotope_label": "Yb-174",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Yb",
+      "element": "Ytterbium",
+      "atomic_number": 70,
+      "mass_number": 176,
+      "isotope_label": "Yb-176",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Lu",
+      "element": "Lutetium",
+      "atomic_number": 71,
+      "mass_number": 175,
+      "isotope_label": "Lu-175",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Hf",
+      "element": "Hafnium",
+      "atomic_number": 72,
+      "mass_number": 174,
+      "isotope_label": "Hf-174",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Hf",
+      "element": "Hafnium",
+      "atomic_number": 72,
+      "mass_number": 176,
+      "isotope_label": "Hf-176",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Hf",
+      "element": "Hafnium",
+      "atomic_number": 72,
+      "mass_number": 177,
+      "isotope_label": "Hf-177",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Hf",
+      "element": "Hafnium",
+      "atomic_number": 72,
+      "mass_number": 178,
+      "isotope_label": "Hf-178",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Hf",
+      "element": "Hafnium",
+      "atomic_number": 72,
+      "mass_number": 179,
+      "isotope_label": "Hf-179",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Hf",
+      "element": "Hafnium",
+      "atomic_number": 72,
+      "mass_number": 180,
+      "isotope_label": "Hf-180",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ta",
+      "element": "Tantalum",
+      "atomic_number": 73,
+      "mass_number": 181,
+      "isotope_label": "Ta-181",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "W",
+      "element": "Tungsten",
+      "atomic_number": 74,
+      "mass_number": 180,
+      "isotope_label": "W-180",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "W",
+      "element": "Tungsten",
+      "atomic_number": 74,
+      "mass_number": 182,
+      "isotope_label": "W-182",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "W",
+      "element": "Tungsten",
+      "atomic_number": 74,
+      "mass_number": 183,
+      "isotope_label": "W-183",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "W",
+      "element": "Tungsten",
+      "atomic_number": 74,
+      "mass_number": 184,
+      "isotope_label": "W-184",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "W",
+      "element": "Tungsten",
+      "atomic_number": 74,
+      "mass_number": 186,
+      "isotope_label": "W-186",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Re",
+      "element": "Rhenium",
+      "atomic_number": 75,
+      "mass_number": 185,
+      "isotope_label": "Re-185",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Os",
+      "element": "Osmium",
+      "atomic_number": 76,
+      "mass_number": 184,
+      "isotope_label": "Os-184",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Os",
+      "element": "Osmium",
+      "atomic_number": 76,
+      "mass_number": 186,
+      "isotope_label": "Os-186",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Os",
+      "element": "Osmium",
+      "atomic_number": 76,
+      "mass_number": 187,
+      "isotope_label": "Os-187",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Os",
+      "element": "Osmium",
+      "atomic_number": 76,
+      "mass_number": 188,
+      "isotope_label": "Os-188",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Os",
+      "element": "Osmium",
+      "atomic_number": 76,
+      "mass_number": 189,
+      "isotope_label": "Os-189",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Os",
+      "element": "Osmium",
+      "atomic_number": 76,
+      "mass_number": 190,
+      "isotope_label": "Os-190",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Os",
+      "element": "Osmium",
+      "atomic_number": 76,
+      "mass_number": 192,
+      "isotope_label": "Os-192",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ir",
+      "element": "Iridium",
+      "atomic_number": 77,
+      "mass_number": 191,
+      "isotope_label": "Ir-191",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Ir",
+      "element": "Iridium",
+      "atomic_number": 77,
+      "mass_number": 193,
+      "isotope_label": "Ir-193",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pt",
+      "element": "Platinum",
+      "atomic_number": 78,
+      "mass_number": 190,
+      "isotope_label": "Pt-190",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pt",
+      "element": "Platinum",
+      "atomic_number": 78,
+      "mass_number": 192,
+      "isotope_label": "Pt-192",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pt",
+      "element": "Platinum",
+      "atomic_number": 78,
+      "mass_number": 194,
+      "isotope_label": "Pt-194",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pt",
+      "element": "Platinum",
+      "atomic_number": 78,
+      "mass_number": 195,
+      "isotope_label": "Pt-195",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pt",
+      "element": "Platinum",
+      "atomic_number": 78,
+      "mass_number": 196,
+      "isotope_label": "Pt-196",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pt",
+      "element": "Platinum",
+      "atomic_number": 78,
+      "mass_number": 198,
+      "isotope_label": "Pt-198",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Au",
+      "element": "Gold",
+      "atomic_number": 79,
+      "mass_number": 197,
+      "isotope_label": "Au-197",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Hg",
+      "element": "Mercury",
+      "atomic_number": 80,
+      "mass_number": 196,
+      "isotope_label": "Hg-196",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Hg",
+      "element": "Mercury",
+      "atomic_number": 80,
+      "mass_number": 198,
+      "isotope_label": "Hg-198",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Hg",
+      "element": "Mercury",
+      "atomic_number": 80,
+      "mass_number": 199,
+      "isotope_label": "Hg-199",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Hg",
+      "element": "Mercury",
+      "atomic_number": 80,
+      "mass_number": 200,
+      "isotope_label": "Hg-200",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Hg",
+      "element": "Mercury",
+      "atomic_number": 80,
+      "mass_number": 201,
+      "isotope_label": "Hg-201",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Hg",
+      "element": "Mercury",
+      "atomic_number": 80,
+      "mass_number": 202,
+      "isotope_label": "Hg-202",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Hg",
+      "element": "Mercury",
+      "atomic_number": 80,
+      "mass_number": 204,
+      "isotope_label": "Hg-204",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Tl",
+      "element": "Thallium",
+      "atomic_number": 81,
+      "mass_number": 203,
+      "isotope_label": "Tl-203",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Tl",
+      "element": "Thallium",
+      "atomic_number": 81,
+      "mass_number": 205,
+      "isotope_label": "Tl-205",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pb",
+      "element": "Lead",
+      "atomic_number": 82,
+      "mass_number": 204,
+      "isotope_label": "Pb-204",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pb",
+      "element": "Lead",
+      "atomic_number": 82,
+      "mass_number": 206,
+      "isotope_label": "Pb-206",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pb",
+      "element": "Lead",
+      "atomic_number": 82,
+      "mass_number": 207,
+      "isotope_label": "Pb-207",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    },
+    {
+      "symbol": "Pb",
+      "element": "Lead",
+      "atomic_number": 82,
+      "mass_number": 208,
+      "isotope_label": "Pb-208",
+      "stable": true,
+      "natural_abundance_percent": null,
+      "data_quality": "curated mass number; abundance may require external reference"
+    }
+  ]
+}

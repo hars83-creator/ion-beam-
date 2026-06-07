@@ -32,6 +32,14 @@ class Element:
     stable: bool
     radioactive_note: str
     data_quality: str = "estimated"
+    block: str = ""
+    covalent_radius: Optional[float] = None
+    electron_affinity: Optional[float] = None
+    oxidation_states: tuple[int, ...] = ()
+    crystal_structure: str = "unknown or not established"
+    natural_abundance: str = "unknown"
+    discovery_information: str = "not catalogued"
+    common_charge_states: tuple[int, ...] = (1,)
 
     def to_dict(self) -> Dict[str, object]:
         return asdict(self)
@@ -422,6 +430,54 @@ def _estimated_values(symbol: str, period: int, category: str) -> tuple[float, f
     )
 
 
+def _block(group: Optional[int], category: str) -> str:
+    if category in {"Lanthanides", "Actinides"}:
+        return "f"
+    if group is None:
+        return "unknown"
+    if group <= 2 or group == 18 and category == "Noble gases":
+        return "s"
+    if group >= 13:
+        return "p"
+    return "d"
+
+
+def _charge_states(category: str) -> tuple[int, ...]:
+    states = {
+        "Alkali metals": (1,),
+        "Alkaline earth metals": (2,),
+        "Transition metals": (1, 2, 3),
+        "Post-transition metals": (1, 2, 3),
+        "Metalloids": (-3, 3, 4),
+        "Nonmetals": (-3, -2, -1, 1, 3, 4, 5),
+        "Halogens": (-1, 1, 3, 5, 7),
+        "Noble gases": (0, 1),
+        "Lanthanides": (2, 3),
+        "Actinides": (3, 4, 5, 6),
+        "Unknown": (1,),
+    }
+    return states[category]
+
+
+def _crystal_structure(category: str) -> str:
+    if category == "Noble gases":
+        return "monatomic gas; close-packed solid at cryogenic temperature"
+    if category in {"Nonmetals", "Halogens"}:
+        return "molecular, covalent, or allotrope-dependent"
+    if category in {"Lanthanides", "Actinides"}:
+        return "metallic; commonly hcp, bcc, or complex"
+    return "crystalline; structure depends on temperature and pressure"
+
+
+def _discovery_information(symbol: str, stable: bool) -> str:
+    ancient = {"C", "S", "Fe", "Cu", "Ag", "Sn", "Au", "Hg", "Pb"}
+    if symbol in ancient:
+        return "known since antiquity"
+    if not stable:
+        return "radioactive or synthetic element identified by modern nuclear science"
+    return "identified through historical or modern chemical analysis"
+
+
 def build_periodic_table() -> Dict[str, Element]:
     table: Dict[str, Element] = {}
     for atomic_number, (symbol, name, atomic_mass) in enumerate(ELEMENT_CORES, start=1):
@@ -451,6 +507,14 @@ def build_periodic_table() -> Dict[str, Element]:
             stable=stable,
             radioactive_note=radioactive_note,
             data_quality=quality,
+            block=_block(group, category),
+            covalent_radius=round(radius * 0.82, 2),
+            electron_affinity=None if category == "Noble gases" else round(max((electronegativity or 1.0) - 0.8, 0.0), 3),
+            oxidation_states=_charge_states(category),
+            crystal_structure=_crystal_structure(category),
+            natural_abundance="naturally occurring" if stable else "trace radioactive or synthetic",
+            discovery_information=_discovery_information(symbol, stable),
+            common_charge_states=tuple(state for state in _charge_states(category) if state >= 0) or (1,),
         )
     return table
 
@@ -488,4 +552,3 @@ def search_elements(query: str) -> Iterable[Element]:
     for element in PERIODIC_TABLE.values():
         if lowered in element.name.lower() or lowered in element.symbol.lower():
             yield element
-

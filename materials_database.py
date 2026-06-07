@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import json
 from dataclasses import asdict, dataclass
+from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 
 
@@ -38,6 +40,20 @@ class Material:
     optical_properties: OpticalProperties
     stopping_coefficients: StoppingCoefficients
     notes: str
+    specific_heat: float = 0.75
+    crystal_structure: str = "amorphous or polycrystalline"
+    radiation_tolerance: str = "moderate"
+    breakdown_field_mv_cm: Optional[float] = None
+    carrier_mobility_cm2_v_s: Optional[float] = None
+    electron_affinity_ev: Optional[float] = None
+    lattice_constant_nm: Optional[float] = None
+    radiation_hardness: str = "moderate"
+    monomer: Optional[str] = None
+    repeat_unit: Optional[str] = None
+    molecular_weight: Optional[float] = None
+    glass_transition_temperature: Optional[float] = None
+    cross_linking_tendency: str = "not applicable"
+    chain_scission_tendency: str = "not applicable"
 
     def to_dict(self) -> Dict[str, object]:
         data = asdict(self)
@@ -69,6 +85,42 @@ def material(
     stop: StoppingCoefficients,
     notes: str,
 ) -> Material:
+    class_defaults = {
+        "Metals": {
+            "specific_heat": 0.45,
+            "crystal_structure": "metallic crystalline",
+            "radiation_tolerance": "high",
+            "radiation_hardness": "high",
+        },
+        "Semiconductors": {
+            "specific_heat": 0.70,
+            "crystal_structure": "single-crystal or polycrystalline semiconductor",
+            "radiation_tolerance": "moderate",
+            "radiation_hardness": "moderate",
+            "carrier_mobility_cm2_v_s": 500.0,
+            "electron_affinity_ev": 4.0,
+            "lattice_constant_nm": 0.55,
+        },
+        "Polymers": {
+            "specific_heat": 1.50,
+            "crystal_structure": "amorphous or semi-crystalline polymer",
+            "radiation_tolerance": "low to moderate",
+            "radiation_hardness": "low to moderate",
+            "monomer": formula,
+            "repeat_unit": formula,
+            "glass_transition_temperature": 350.0,
+            "cross_linking_tendency": "material and dose dependent",
+            "chain_scission_tendency": "material and dose dependent",
+        },
+        "Insulators": {
+            "specific_heat": 0.80,
+            "crystal_structure": "ceramic, glass, or dielectric solid",
+            "radiation_tolerance": "moderate to high",
+            "radiation_hardness": "moderate to high",
+            "breakdown_field_mv_cm": 5.0,
+        },
+    }
+    defaults = class_defaults.get(material_class, {})
     return Material(
         name=name,
         formula=formula,
@@ -85,6 +137,7 @@ def material(
         optical_properties=opt,
         stopping_coefficients=stop,
         notes=notes,
+        **defaults,
     )
 
 
@@ -317,7 +370,36 @@ def _build() -> None:
         )
 
 
+def material_from_dict(record: Dict[str, object]) -> Material:
+    data = dict(record)
+    optical_data = data.pop("optical_properties")
+    stopping_data = data.pop("stopping_coefficients")
+    if not isinstance(optical_data, dict) or not isinstance(stopping_data, dict):
+        raise ValueError("Material JSON requires optical_properties and stopping_coefficients objects")
+    return Material(
+        optical_properties=OpticalProperties(**optical_data),
+        stopping_coefficients=StoppingCoefficients(**stopping_data),
+        **data,
+    )
+
+
+def load_json_materials(path: Optional[Path] = None) -> int:
+    database_path = path or Path(__file__).with_name("data") / "materials.json"
+    if not database_path.exists():
+        return 0
+    payload = json.loads(database_path.read_text(encoding="utf-8"))
+    records = payload.get("materials", payload) if isinstance(payload, dict) else payload
+    loaded = 0
+    for record in records:
+        if not isinstance(record, dict):
+            continue
+        add(material_from_dict(record))
+        loaded += 1
+    return loaded
+
+
 _build()
+load_json_materials()
 
 
 def get_material(name: str) -> Material:
@@ -371,4 +453,3 @@ def search_materials(query: str) -> Iterable[Material]:
         haystack = f"{entry.name} {entry.formula} {entry.material_class} {entry.subclass}".lower()
         if lowered in haystack:
             yield entry
-

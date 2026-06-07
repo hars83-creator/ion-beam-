@@ -10,6 +10,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from materials_database import MATERIALS, get_material
+from database import ScientificDatabase
 from periodic_table import PERIODIC_TABLE, get_element
 from physics_engine import BeamParameters, PhysicsEngine
 from utilities import export_profile_csv, export_report
@@ -17,7 +18,11 @@ from utilities import export_profile_csv, export_report
 
 def main() -> None:
     assert len(PERIODIC_TABLE) == 118
-    assert len(MATERIALS) >= 90
+    assert len(MATERIALS) >= 120
+    database = ScientificDatabase()
+    assert len(database.elements) == 118
+    assert len(database.isotopes) >= 250
+    assert database.validate() == {}
 
     parameters = BeamParameters(
         ion=get_element("Ar"),
@@ -38,7 +43,11 @@ def main() -> None:
     assert result.penetration_depth_nm > 0
     assert result.ion_velocity_m_s > 0
     assert result.collisions > 0
+    assert result.vacancies_per_ion > 0
+    assert result.secondary_electrons_per_ion > 0
+    assert result.radiation_damage_dpa >= 0
     assert result.profile.depth_nm.shape == result.profile.energy_kev.shape
+    assert len(PhysicsEngine().parameter_sweep(parameters, "energy_kev", [100, 200, 300])) == 3
 
     output_dir = Path("build/smoke")
     output_dir.mkdir(parents=True, exist_ok=True)

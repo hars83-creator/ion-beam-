@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from math import pi, sqrt
-from typing import Dict, Optional
+from typing import Dict, Iterable, List, Optional
 
 import numpy as np
 
@@ -50,6 +50,10 @@ class DepthProfile:
     temperature_rise_k: np.ndarray
     defect_density: np.ndarray
     collision_density: np.ndarray
+    energy_deposition_kev_nm: np.ndarray
+    vacancy_density: np.ndarray
+    interstitial_density: np.ndarray
+    thermal_spike_k: np.ndarray
 
 
 @dataclass(frozen=True)
@@ -67,6 +71,13 @@ class SimulationResult:
     temperature_rise_k: float
     electronic_stopping_kev_nm: float
     nuclear_stopping_kev_nm: float
+    electronic_energy_deposited_kev: float
+    nuclear_energy_deposited_kev: float
+    secondary_electrons_per_ion: float
+    vacancies_per_ion: float
+    interstitials_per_ion: float
+    radiation_damage_dpa: float
+    thermal_spike_peak_k: float
     beam_current_na: float
     beam_flux_ions_cm2_s: float
     profile: DepthProfile
@@ -87,6 +98,13 @@ class SimulationResult:
             "Temperature rise (K)": self.temperature_rise_k,
             "Electronic stopping (keV/nm)": self.electronic_stopping_kev_nm,
             "Nuclear stopping (keV/nm)": self.nuclear_stopping_kev_nm,
+            "Electronic energy deposited (keV)": self.electronic_energy_deposited_kev,
+            "Nuclear energy deposited (keV)": self.nuclear_energy_deposited_kev,
+            "Secondary electrons (per ion)": self.secondary_electrons_per_ion,
+            "Vacancies (per ion)": self.vacancies_per_ion,
+            "Interstitials (per ion)": self.interstitials_per_ion,
+            "Radiation damage (DPA)": self.radiation_damage_dpa,
+            "Thermal spike peak (K)": self.thermal_spike_peak_k,
             "Beam flux (ions/cm^2/s)": self.beam_flux_ions_cm2_s,
         }
 
@@ -149,6 +167,23 @@ def defect_generation(energy_deposited_kev: float, displacement_energy_ev: float
     return float(norgett_robinson_torrens * fluence_ions_cm2 / affected_volume_cm3)
 
 
+def vacancies_per_ion(nuclear_energy_kev: float, displacement_energy_ev: float) -> float:
+    return float(0.8 * nuclear_energy_kev * 1000.0 / max(2.0 * displacement_energy_ev, 1.0))
+
+
+def secondary_electrons_per_ion(electronic_energy_kev: float, target: Material) -> float:
+    excitation_energy_ev = max(12.0, (target.bandgap or 3.0) * 2.8)
+    return float(electronic_energy_kev * 1000.0 / excitation_energy_ev)
+
+
+def radiation_damage_dpa(vacancies: float, fluence_ions_cm2: float, target: Material, range_nm: float) -> float:
+    avogadro = 6.02214076e23
+    atomic_density = max(target.density, 0.1) / max(target.atomic_mass, 1.0) * avogadro
+    damaged_volume_cm3 = max(range_nm, 1.0) * 1.0e-7
+    vacancy_density = vacancies * fluence_ions_cm2 / damaged_volume_cm3
+    return float(vacancy_density / max(atomic_density, 1.0))
+
+
 def temperature_rise(energy_deposited_kev: float, fluence_ions_cm2: float, target: Material, range_nm: float) -> float:
     energy_j_cm2 = energy_deposited_kev * 1.0e3 * EV_J * fluence_ions_cm2
     thickness_cm = max(range_nm, 1.0) * 1.0e-7
@@ -185,15 +220,27 @@ class PhysicsEngine:
         energy_profile = np.clip(energy - energy_loss, 0.0, energy)
         final_energy = float(energy_profile[-1])
         deposited = float(energy - final_energy)
-        integrate_profile = getattr(np, "trapezoid", np.trapz)
+        integrate_profile = getattr(np, "trapezoid", None)
+        if integrate_profile is None:
+            integrate_profile = np.trapz
         mean_let = float(integrate_profile(total_stopping, depth) / max(range_nm, 1.0))
         if parameters.let_kev_nm > 0.0:
             mean_let = 0.65 * mean_let + 0.35 * parameters.let_kev_nm
 
+        electronic_integral = float(integrate_profile(electronic, depth))
+        nuclear_integral = float(integrate_profile(nuclear, depth))
+        stopping_integral = max(electronic_integral + nuclear_integral, 1.0e-12)
+        electronic_deposited = deposited * electronic_integral / stopping_integral
+        nuclear_deposited = deposited * nuclear_integral / stopping_integral
         loss_fraction = collision_loss_fraction(ion, target, energy)
         expected_collisions = int(max(1.0, deposited * 1000.0 * loss_fraction / max(target.displacement_energy, 1.0)))
-        defect_density = defect_generation(deposited * loss_fraction, target.displacement_energy, parameters.fluence_ions_cm2, range_nm)
+        vacancies = vacancies_per_ion(nuclear_deposited, target.displacement_energy)
+        interstitials = vacancies * 0.92
+        secondaries = secondary_electrons_per_ion(electronic_deposited, target)
+        dpa = radiation_damage_dpa(vacancies, parameters.fluence_ions_cm2, target, range_nm)
+        defect_density = defect_generation(nuclear_deposited, target.displacement_energy, parameters.fluence_ions_cm2, range_nm)
         temp = temperature_rise(deposited, parameters.fluence_ions_cm2, target, range_nm)
+        thermal_spike_peak = temp * (1.0 + 0.8 * nuclear_deposited / max(deposited, 1.0e-12))
         sputter = float(target.stopping_coefficients.sputter_yield * loss_fraction * (1.0 + 0.015 * parameters.beam_angle_deg))
         flux = beam_flux(parameters.fluence_ions_cm2, parameters.irradiation_time_s)
         current_na = parameters.beam_current_na or current_from_flux(
@@ -201,8 +248,11 @@ class PhysicsEngine:
         )
 
         defect_profile = defect_density * np.exp(-((normalized_depth - 0.78) / 0.24) ** 2)
+        vacancy_profile = defect_profile * vacancies / max(vacancies + interstitials, 1.0)
+        interstitial_profile = defect_profile * interstitials / max(vacancies + interstitials, 1.0)
         collision_profile = expected_collisions * np.exp(-((normalized_depth - 0.72) / 0.22) ** 2)
         temperature_profile = temp * np.clip(_cumulative_trapezoid(total_stopping, depth) / max(deposited, 1.0e-9), 0, 1)
+        thermal_spike_profile = thermal_spike_peak * np.exp(-((normalized_depth - 0.82) / 0.16) ** 2)
 
         profile = DepthProfile(
             depth_nm=depth,
@@ -213,6 +263,10 @@ class PhysicsEngine:
             temperature_rise_k=temperature_profile,
             defect_density=defect_profile,
             collision_density=collision_profile,
+            energy_deposition_kev_nm=total_stopping,
+            vacancy_density=vacancy_profile,
+            interstitial_density=interstitial_profile,
+            thermal_spike_k=thermal_spike_profile,
         )
 
         explanation = self.explain(parameters, range_nm, mean_let, se0, sn0, expected_collisions, temp)
@@ -231,11 +285,44 @@ class PhysicsEngine:
             temperature_rise_k=temp,
             electronic_stopping_kev_nm=se0,
             nuclear_stopping_kev_nm=sn0,
+            electronic_energy_deposited_kev=electronic_deposited,
+            nuclear_energy_deposited_kev=nuclear_deposited,
+            secondary_electrons_per_ion=secondaries,
+            vacancies_per_ion=vacancies,
+            interstitials_per_ion=interstitials,
+            radiation_damage_dpa=dpa,
+            thermal_spike_peak_k=thermal_spike_peak,
             beam_current_na=current_na,
             beam_flux_ions_cm2_s=flux,
             profile=profile,
             explanation=explanation,
         )
+
+    def parameter_sweep(
+        self,
+        parameters: BeamParameters,
+        parameter_name: str,
+        values: Iterable[float],
+    ) -> List[SimulationResult]:
+        allowed = {
+            "energy_kev",
+            "fluence_ions_cm2",
+            "irradiation_time_s",
+            "let_kev_nm",
+            "beam_current_na",
+            "beam_angle_deg",
+            "beam_spread_deg",
+            "beam_intensity",
+        }
+        if parameter_name not in allowed:
+            raise ValueError(f"Unsupported sweep parameter: {parameter_name}")
+        return [self.calculate(replace(parameters, **{parameter_name: float(value)})) for value in values]
+
+    def compare_materials(self, parameters: BeamParameters, targets: Iterable[Material]) -> List[SimulationResult]:
+        return [self.calculate(replace(parameters, target=target)) for target in targets]
+
+    def compare_ions(self, parameters: BeamParameters, ions: Iterable[Element]) -> List[SimulationResult]:
+        return [self.calculate(replace(parameters, ion=ion)) for ion in ions]
 
     def explain(
         self,
