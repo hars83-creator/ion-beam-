@@ -161,6 +161,32 @@ class SimulationCanvas(tk.Canvas):
                 energy=0.8,
             )
         )
+        self.engine.add_particle(
+            Particle(
+                x=ion.x - 3,
+                y=ion.y + 3,
+                vx=0.0,
+                vy=0.0,
+                radius=2.8,
+                color="#ff4d6d",
+                ttl=95,
+                kind="vacancy",
+                energy=0.9,
+            )
+        )
+        self.engine.add_particle(
+            Particle(
+                x=ion.x + 5,
+                y=ion.y - 4,
+                vx=self.random.uniform(-0.15, 0.15),
+                vy=self.random.uniform(-0.15, 0.15),
+                radius=2.4,
+                color="#6ee7b7",
+                ttl=95,
+                kind="interstitial",
+                energy=0.9,
+            )
+        )
 
     def _stopping_region_event(self, particle: Particle) -> None:
         self.engine.add_flash(Flash(particle.x, particle.y, 12.0, "#ff4d6d", 18, "defect cluster"))
@@ -295,4 +321,3 @@ class SimulationCanvas(tk.Canvas):
         if brightness > 1.2:
             return "#ffd166"
         return "#4dd8ff"
-

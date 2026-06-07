@@ -119,4 +119,3 @@ class ScientificDatabase:
             tolerance = str(record.get("radiation_tolerance", "")).lower()
             if "high" in tolerance or record.get("material_class") == "Radiation-resistant materials":
                 yield record
-

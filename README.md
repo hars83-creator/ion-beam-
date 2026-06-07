@@ -10,6 +10,8 @@ A virtual ion beam irradiation laboratory for understanding ion-matter interacti
 - Embedded matplotlib graph dashboard for energy, LET, stopping, collision, range, temperature, intensity, and defect profiles.
 - Complete 118-element periodic table support for ion species.
 - Structured material database covering metals, alloys, oxides, semiconductors, polymers, and insulators.
+- JSON-backed research database with 118 elements, stable isotopes, common ion charge states, and 120+ materials.
+- Browser research dashboard with twelve tabs, parameter sweeps, comparisons, experiment history, learning content, and exports.
 - CSV, graph, report, screenshot, save, and load actions.
 - Static website preview in `website/`.
 
@@ -49,13 +51,41 @@ python tests/smoke_check.py
 
 ## Open Website
 
-The website is static. Open `website/index.html` directly, or serve it locally:
+The browser laboratory is the recommended mode for GitHub Codespaces, containers, SSH sessions, and any environment without a graphical display:
 
 ```bash
-python -m http.server 8000
+python run_web.py
 ```
 
 Then visit `http://localhost:8000/website/`.
+
+In GitHub Codespaces, open the forwarded port `8000` and append `/website/`.
+
+The browser laboratory includes:
+
+- full periodic table and stable isotope selector
+- JSON database explorer
+- material and ion comparison
+- research parameter sweeps
+- experiment history
+- learning levels
+- live physics-driven interaction animation
+- JSON, CSV, report, profile, history, and session exports
+
+## Scientific Databases
+
+The `data/` directory is the runtime database source:
+
+- `data/elements.json`
+- `data/isotopes.json`
+- `data/materials.json`
+- `data/manifest.json`
+
+New material records can be added to `data/materials.json` without changing Python code. Regenerate the curated database files after changing source records with:
+
+```bash
+python tools/generate_databases.py
+```
 
 ## Module Map
 
@@ -68,6 +98,9 @@ Then visit `http://localhost:8000/website/`.
 - `materials_database.py` - structured target material database.
 - `graphs.py` - embedded matplotlib dashboards.
 - `utilities.py` - formatting, reports, CSV, save/load.
+- `database.py` - JSON scientific database loader, filters, search, and validation.
+- `run_web.py` - Codespaces-friendly browser laboratory server.
+- `tools/generate_databases.py` - reproducible JSON database generator.
 
 ## Scientific Note
 
@@ -80,4 +113,10 @@ If `python main.py` reports that `_tkinter` is missing, use a Python build that 
 ```bash
 brew search python-tk
 brew install python-tk@3.14
+```
+
+If `python main.py` reports `no display name and no $DISPLAY environment variable`, the environment is headless. Run:
+
+```bash
+python run_web.py
 ```

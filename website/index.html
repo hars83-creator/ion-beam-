@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ion Beam Irradiation Simulator</title>
+    <title>Ion Beam Irradiation Laboratory</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -12,115 +12,228 @@
         <div class="brand">
           <span class="brand-mark"></span>
           <div>
-            <h1>Ion Beam Irradiation Simulator</h1>
-            <p>Physics-Based Ion-Matter Interaction Laboratory</p>
+            <h1>Ion Beam Irradiation Laboratory</h1>
+            <p>Research and learning simulator</p>
           </div>
         </div>
 
         <section class="control-group">
           <h2>Ion Source</h2>
+          <label>Ion <select id="ion"></select></label>
+          <label>Stable isotope <select id="isotope"></select></label>
+          <label>Charge state <select id="charge"></select></label>
           <label>
-            Ion
-            <select id="ion">
-              <option value="H">H+</option>
-              <option value="He">He+</option>
-              <option value="Ar" selected>Ar+</option>
-              <option value="Fe">Fe+</option>
-              <option value="Xe">Xe+</option>
-              <option value="Au">Au+</option>
-            </select>
-          </label>
-          <label>
-            Charge
-            <input id="charge" type="number" min="1" max="8" value="1" />
-          </label>
-          <label>
-            Energy <output id="energyOut">500 keV</output>
+            Energy <output id="energyOut"></output>
             <input id="energy" type="range" min="20" max="5000" value="500" />
           </label>
         </section>
 
         <section class="control-group">
           <h2>Target</h2>
+          <label>Material class <select id="materialClass"></select></label>
+          <label>Material <select id="material"></select></label>
           <label>
-            Material
-            <select id="material">
-              <option value="Iron" selected>Iron</option>
-              <option value="Silicon">Silicon</option>
-              <option value="Alumina">Alumina</option>
-              <option value="PTFE">PTFE</option>
-              <option value="Gold">Gold</option>
-              <option value="Diamond">Diamond</option>
-            </select>
+            Fluence <output id="fluenceOut"></output>
+            <input id="fluence" type="range" min="8" max="18" step="0.1" value="13" />
           </label>
           <label>
-            Fluence <output id="fluenceOut">1e13 ions/cm^2</output>
-            <input id="fluence" type="range" min="10" max="17" step="0.1" value="13" />
-          </label>
-          <label>
-            Time <output id="timeOut">60 s</output>
-            <input id="time" type="range" min="1" max="1200" value="60" />
+            Irradiation time <output id="timeOut"></output>
+            <input id="time" type="range" min="1" max="3600" value="60" />
           </label>
         </section>
 
         <section class="control-group">
           <h2>Beam</h2>
           <label>
-            LET <output id="letOut">0.35 keV/nm</output>
+            LET input <output id="letOut"></output>
             <input id="let" type="range" min="0" max="5" step="0.01" value="0.35" />
           </label>
           <label>
-            Angle <output id="angleOut">0 deg</output>
-            <input id="angle" type="range" min="0" max="70" value="0" />
+            Beam angle <output id="angleOut"></output>
+            <input id="angle" type="range" min="0" max="75" value="0" />
           </label>
           <label>
-            Spread <output id="spreadOut">4 deg</output>
-            <input id="spread" type="range" min="0" max="24" value="4" />
+            Beam spread <output id="spreadOut"></output>
+            <input id="spread" type="range" min="0" max="25" value="4" />
+          </label>
+          <label>
+            Intensity <output id="intensityOut"></output>
+            <input id="intensity" type="range" min="0.2" max="10" step="0.1" value="4" />
           </label>
         </section>
       </aside>
 
       <section class="workspace">
-        <div class="top-strip">
-          <div class="mode-tabs" role="tablist" aria-label="simulation mode">
+        <header class="top-strip">
+          <div class="mode-tabs">
             <button class="active" id="educational">Educational</button>
             <button id="research">Research</button>
           </div>
           <div class="run-controls">
-            <button id="run">Start</button>
+            <button id="record">Record Run</button>
+            <button id="run" class="primary">Start</button>
             <button id="reset">Reset</button>
           </div>
+        </header>
+
+        <nav class="tab-bar" aria-label="scientific dashboard tabs">
+          <button class="active" data-tab="interaction">Interaction</button>
+          <button data-tab="ion-properties">Ion Properties</button>
+          <button data-tab="material-properties">Material Properties</button>
+          <button data-tab="equations">Physics Equations</button>
+          <button data-tab="graphs">Live Graphs</button>
+          <button data-tab="material-comparison">Material Comparison</button>
+          <button data-tab="ion-comparison">Ion Comparison</button>
+          <button data-tab="history">Experiment History</button>
+          <button data-tab="learning">Learning Mode</button>
+          <button data-tab="research-tools">Research Mode</button>
+          <button data-tab="export-center">Export Center</button>
+          <button data-tab="database-explorer">Database Explorer</button>
+        </nav>
+
+        <div class="tab-stage">
+          <section class="tab-view active" id="interaction">
+            <div class="scene-panel"><canvas id="scene"></canvas></div>
+            <section class="metrics" id="metrics"></section>
+          </section>
+
+          <section class="tab-view" id="ion-properties">
+            <div class="section-head">
+              <div><h2>Interactive Periodic Table</h2><p>Click an element to select the ion source.</p></div>
+              <div class="filter-row">
+                <input id="elementSearch" type="search" placeholder="Search element" />
+                <select id="elementCategory"></select>
+                <select id="elementGroup"></select>
+                <select id="elementPeriod"></select>
+              </div>
+            </div>
+            <div id="periodicTable" class="periodic-table"></div>
+            <div class="split-grid">
+              <div class="data-panel"><h3>Element Record</h3><dl id="ionProperties"></dl></div>
+              <div class="data-panel"><h3>Stable Isotopes</h3><div class="table-wrap"><table id="isotopeTable"></table></div></div>
+            </div>
+          </section>
+
+          <section class="tab-view" id="material-properties">
+            <div class="section-head"><div><h2>Material Properties</h2><p>Scientific record loaded from JSON.</p></div></div>
+            <div class="property-grid" id="materialProperties"></div>
+          </section>
+
+          <section class="tab-view" id="equations">
+            <div class="equation-grid">
+              <article><h3>Total stopping</h3><code>S(E) = Se(E) + Sn(E)</code><p>Electronic and nuclear stopping are calculated independently and combined along depth.</p></article>
+              <article><h3>Linear energy transfer</h3><code>LET = -dE/dx</code><p>The local energy deposited per unit path length forms a Bragg-like peak.</p></article>
+              <article><h3>Ion velocity</h3><code>v = sqrt(2E/m)</code><p>The non-relativistic velocity estimate uses the selected isotope or atomic mass.</p></article>
+              <article><h3>Beam current</h3><code>I = qN/t</code><p>Charge state and flux determine the current delivered to the target.</p></article>
+              <article><h3>NRT displacement estimate</h3><code>Nv = 0.8 En / (2 Ed)</code><p>Nuclear deposited energy and displacement threshold estimate vacancies.</p></article>
+              <article><h3>Damage accumulation</h3><code>DPA = vacancy density / atomic density</code><p>Displacements per atom connects track-scale damage with fluence.</p></article>
+              <article><h3>Penetration approximation</h3><code>R proportional to E^1.5</code><p>Material range factors, density, ion mass, and incidence angle modify range.</p></article>
+              <article><h3>Thermal spike</h3><code>Delta T = Edep / (m Cp)</code><p>A localized peak is added near the stopping region.</p></article>
+            </div>
+          </section>
+
+          <section class="tab-view" id="graphs">
+            <div class="chart-grid">
+              <canvas id="energyChart"></canvas>
+              <canvas id="letChart"></canvas>
+              <canvas id="stoppingChart"></canvas>
+              <canvas id="damageChart"></canvas>
+            </div>
+          </section>
+
+          <section class="tab-view" id="material-comparison">
+            <div class="tool-row">
+              <label>Material A <select id="compareMaterialA"></select></label>
+              <label>Material B <select id="compareMaterialB"></select></label>
+              <button id="runMaterialComparison" class="primary">Compare Materials</button>
+            </div>
+            <canvas id="materialComparisonChart" class="wide-chart"></canvas>
+            <div class="table-wrap"><table id="materialComparisonTable"></table></div>
+          </section>
+
+          <section class="tab-view" id="ion-comparison">
+            <div class="tool-row">
+              <label>Ion A <select id="compareIonA"></select></label>
+              <label>Ion B <select id="compareIonB"></select></label>
+              <button id="runIonComparison" class="primary">Compare Ions</button>
+            </div>
+            <canvas id="ionComparisonChart" class="wide-chart"></canvas>
+            <div class="table-wrap"><table id="ionComparisonTable"></table></div>
+          </section>
+
+          <section class="tab-view" id="history">
+            <div class="section-head">
+              <div><h2>Experiment History</h2><p>Recorded runs persist in this browser session.</p></div>
+              <button id="clearHistory">Clear History</button>
+            </div>
+            <div class="table-wrap"><table id="historyTable"></table></div>
+          </section>
+
+          <section class="tab-view" id="learning">
+            <div class="tool-row">
+              <label>Learning level
+                <select id="learningLevel">
+                  <option>Beginner</option><option>Intermediate</option><option>Advanced</option>
+                </select>
+              </label>
+            </div>
+            <div class="learning-grid" id="learningContent"></div>
+          </section>
+
+          <section class="tab-view" id="research-tools">
+            <div class="tool-row">
+              <label>Sweep parameter
+                <select id="sweepParameter">
+                  <option value="energy">Ion energy (keV)</option>
+                  <option value="angle">Beam angle (deg)</option>
+                  <option value="fluence">Fluence exponent</option>
+                </select>
+              </label>
+              <label>Minimum <input id="sweepMin" type="number" value="100" /></label>
+              <label>Maximum <input id="sweepMax" type="number" value="2000" /></label>
+              <label>Steps <input id="sweepSteps" type="number" min="3" max="40" value="12" /></label>
+              <button id="runSweep" class="primary">Run Sweep</button>
+            </div>
+            <canvas id="sweepChart" class="wide-chart"></canvas>
+            <div class="table-wrap"><table id="sweepTable"></table></div>
+          </section>
+
+          <section class="tab-view" id="export-center">
+            <div class="export-grid">
+              <button id="exportJson">Export Current Result JSON</button>
+              <button id="exportCsv">Export Depth Profile CSV</button>
+              <button id="exportHistory">Export History CSV</button>
+              <button id="exportReport">Export Scientific Report</button>
+              <button id="saveSession">Save Session JSON</button>
+              <label class="file-button">Load Session JSON<input id="loadSession" type="file" accept=".json" /></label>
+            </div>
+          </section>
+
+          <section class="tab-view" id="database-explorer">
+            <div class="tool-row">
+              <label>Database
+                <select id="databaseType"><option value="elements">Elements</option><option value="materials">Materials</option><option value="isotopes">Stable Isotopes</option></select>
+              </label>
+              <label>Search <input id="databaseSearch" type="search" /></label>
+              <label>Filter <select id="databaseFilter"></select></label>
+            </div>
+            <p id="databaseCount" class="database-count"></p>
+            <div class="table-wrap explorer-table"><table id="databaseTable"></table></div>
+          </section>
         </div>
-
-        <section class="scene-panel">
-          <canvas id="scene" width="1100" height="540"></canvas>
-        </section>
-
-        <section class="metrics" aria-label="calculated outputs">
-          <div><span>Range</span><strong id="rangeMetric">0 nm</strong></div>
-          <div><span>LET</span><strong id="letMetric">0 keV/nm</strong></div>
-          <div><span>Se</span><strong id="seMetric">0</strong></div>
-          <div><span>Sn</span><strong id="snMetric">0</strong></div>
-          <div><span>Defects</span><strong id="defectMetric">0 cm^-3</strong></div>
-          <div><span>Delta T</span><strong id="tempMetric">0 K</strong></div>
-        </section>
-
-        <section class="charts">
-          <canvas id="energyChart" width="520" height="210"></canvas>
-          <canvas id="letChart" width="520" height="210"></canvas>
-        </section>
       </section>
 
       <aside class="panel readout">
-        <h2>Material State</h2>
-        <dl id="materialReadout"></dl>
-        <h2>Explanation</h2>
+        <h2>Live Result</h2>
+        <dl id="liveReadout"></dl>
+        <h2>Explanation Engine</h2>
         <p id="explanation"></p>
         <h2>Event Log</h2>
         <ol id="log"></ol>
+        <h2>Database Status</h2>
+        <p id="databaseStatus">Loading scientific databases...</p>
       </aside>
     </main>
     <script src="app.js"></script>
   </body>
 </html>
-

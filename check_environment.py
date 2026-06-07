@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib
+import os
 import sys
 
 
@@ -53,6 +54,10 @@ def main() -> int:
     print("")
 
     ok = check_tkinter(open_window="--gui" in sys.argv)
+    if sys.platform.startswith("linux") and not (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):
+        print("[FAIL] GUI display: no DISPLAY or WAYLAND_DISPLAY environment variable")
+        print("       Use the browser laboratory in headless environments: python run_web.py")
+        ok = False
     for module_name, label in REQUIRED_MODULES:
         ok = check_import(module_name, label) and ok
 

@@ -34,6 +34,17 @@ You can verify the environment with:
   python check_environment.py
 """.strip()
 
+NO_DISPLAY_MESSAGE = """
+No graphical display is available for the Tkinter desktop application.
+
+This commonly happens in GitHub Codespaces, containers, and SSH sessions.
+Run the browser laboratory instead:
+
+  python run_web.py
+
+Then open the forwarded port 8000 and navigate to /website/.
+""".strip()
+
 
 def main() -> None:
     try:
@@ -57,6 +68,12 @@ def main() -> None:
         root = tk.Tk()
         IonBeamSimulatorApp(root)
         root.mainloop()
+    except tk.TclError as exc:
+        if "no display name" in str(exc).lower() or "couldn't connect to display" in str(exc).lower():
+            print(NO_DISPLAY_MESSAGE, file=sys.stderr)
+            raise SystemExit(1) from exc
+        print(f"Ion Beam Irradiation Simulator failed to start: {exc}", file=sys.stderr)
+        raise SystemExit(1) from exc
     except Exception as exc:
         try:
             messagebox.showerror("Ion Beam Irradiation Simulator", str(exc))
