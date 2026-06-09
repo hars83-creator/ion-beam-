@@ -24,8 +24,20 @@
           <label>Charge state <select id="charge"></select></label>
           <label>
             Energy <output id="energyOut"></output>
-            <input id="energy" type="range" min="20" max="5000" value="500" />
+            <input id="energy" type="range" min="1" max="5000000" value="500" />
           </label>
+          <div class="energy-grid">
+            <label>Energy input <input id="energyValue" type="text" value="500" /></label>
+            <label>Unit
+              <select id="energyUnit">
+                <option value="eV">eV</option>
+                <option value="keV" selected>keV</option>
+                <option value="MeV">MeV</option>
+                <option value="GeV">GeV</option>
+              </select>
+            </label>
+          </div>
+          <div class="preset-grid" id="energyPresets"></div>
         </section>
 
         <section class="control-group">
@@ -69,6 +81,11 @@
             <button class="active" id="educational">Educational</button>
             <button id="research">Research</button>
           </div>
+          <div class="global-search">
+            <input id="globalSearch" type="search" list="globalSearchOptions" placeholder="Search ions, isotopes, materials" />
+            <datalist id="globalSearchOptions"></datalist>
+            <div id="globalSearchResults" class="search-results"></div>
+          </div>
           <div class="run-controls">
             <button id="record">Record Run</button>
             <button id="run" class="primary">Start</button>
@@ -87,6 +104,7 @@
           <button data-tab="history">Experiment History</button>
           <button data-tab="learning">Learning Mode</button>
           <button data-tab="research-tools">Research Mode</button>
+          <button data-tab="property-evolution">Property Evolution</button>
           <button data-tab="material-explorer">Material Explorer</button>
           <button data-tab="crystal-bragg">Crystal & Bragg</button>
           <button data-tab="multilayer-evolution">Multilayer & Time</button>
@@ -100,7 +118,27 @@
 
         <div class="tab-stage">
           <section class="tab-view active" id="interaction">
+            <div class="scene-toolbar">
+              <div class="scene-tabs" id="sceneTabs">
+                <button class="active" data-view="interaction">Interaction</button>
+                <button data-view="crystal">Crystal</button>
+                <button data-view="electron">Electron</button>
+                <button data-view="damage">Damage</button>
+                <button data-view="thermal">Thermal</button>
+                <button data-view="track">Track</button>
+                <button data-view="polymer">Polymer</button>
+              </div>
+              <label>Scale
+                <select id="scaleMode">
+                  <option>Macroscopic</option>
+                  <option>Microscopic</option>
+                  <option>Atomic</option>
+                  <option>Electron</option>
+                </select>
+              </label>
+            </div>
             <div class="scene-panel"><canvas id="scene"></canvas></div>
+            <section id="healthDashboard" class="health-dashboard"></section>
             <section class="metrics" id="metrics"></section>
           </section>
 
@@ -203,6 +241,52 @@
             </div>
             <canvas id="sweepChart" class="wide-chart"></canvas>
             <div class="table-wrap"><table id="sweepTable"></table></div>
+          </section>
+
+          <section class="tab-view" id="property-evolution">
+            <div class="module-grid">
+              <article class="module-card">
+                <div class="section-head">
+                  <div><h2>Before During After</h2><p>Property state comparison for the current irradiation condition.</p></div>
+                  <label>Timeline
+                    <select id="timelinePoint"></select>
+                  </label>
+                </div>
+                <div id="propertyChangePanel" class="status-grid"></div>
+                <div class="table-wrap"><table id="evolutionTable"></table></div>
+              </article>
+              <article class="module-card">
+                <div class="section-head"><div><h2>Material Health Index</h2><p>Integrity, damage, resistance, and remaining lifetime.</p></div></div>
+                <div id="healthGauges" class="gauge-grid"></div>
+                <div class="table-wrap"><table id="damageIndexTable"></table></div>
+              </article>
+              <article class="module-card">
+                <div class="section-head"><div><h2>Property Graphs</h2><p>Timeline and before/after radar visualization.</p></div></div>
+                <canvas id="evolutionCanvas" class="mini-canvas"></canvas>
+                <canvas id="radarCanvas" class="mini-canvas stacked-table"></canvas>
+              </article>
+              <article class="module-card">
+                <div class="section-head"><div><h2>Heatmap And Correlation</h2><p>Property change intensity and parameter correlation matrix.</p></div></div>
+                <canvas id="propertyHeatmapCanvas" class="mini-canvas"></canvas>
+                <canvas id="correlationCanvas" class="mini-canvas stacked-table"></canvas>
+              </article>
+              <article class="module-card">
+                <div class="section-head"><div><h2>Smart Material Finder</h2><p>Natural-language style filters for materials and target properties.</p></div></div>
+                <div class="tool-row compact-row">
+                  <label>Query <input id="smartFinderQuery" type="search" value="Show radiation resistant materials with bandgap > 3 eV" /></label>
+                  <button id="runSmartFinder" class="primary">Find</button>
+                </div>
+                <div class="table-wrap"><table id="smartFinderResults"></table></div>
+              </article>
+              <article class="module-card">
+                <div class="section-head"><div><h2>Property Comparison</h2><p>Side-by-side material response under the current beam.</p></div></div>
+                <div class="tool-row compact-row">
+                  <label>Materials <input id="propertyCompareMaterials" type="text" value="PTFE (Teflon),PEEK,PVC,Silicon,GaN,GaAs" /></label>
+                  <button id="runPropertyCompare" class="primary">Compare</button>
+                </div>
+                <div class="table-wrap"><table id="propertyCompareTable"></table></div>
+              </article>
+            </div>
           </section>
 
           <section class="tab-view" id="material-explorer">

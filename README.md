@@ -13,6 +13,7 @@ A virtual ion beam irradiation laboratory for understanding ion-matter interacti
 - JSON-backed research database with 118 elements, stable isotopes, common ion charge states, and 120+ materials.
 - Browser research dashboard with twelve tabs, parameter sweeps, comparisons, experiment history, learning content, and exports.
 - Advanced research modules for material exploration, crystal structures, Bragg peak comparison, multi-layer targets, time evolution, annealing recovery, radiation hardness ranking, AI-style recommendations, reverse beam recipes, device/polymer/surface response, uncertainty, SRIM comparison, and publication/notebook output.
+- Final browser lab polish with global search, eV/keV/MeV/GeV energy conversion, quick energy presets up to 5 GeV, before/during/after property evolution, health and damage gauges, radar charts, heatmaps, correlation matrices, smart material finder, and multi-scale scene views.
 - HTTP API endpoints for headless simulation and research summaries when served with `run_web.py`.
 - CSV, graph, report, screenshot, save, and load actions.
 - Static website preview in `website/`.
@@ -74,6 +75,7 @@ The browser laboratory includes:
 - live physics-driven interaction animation
 - JSON, CSV, report, profile, history, and session exports
 - advanced material explorer, crystal/Bragg lab, multilayer/time lab, radiation/AI lab, publication notebook, grand comparison matrix, accelerator facility presets, and SRIM/TRIM comparison
+- final visualization tools for material integrity, damage class, property status, timeline evolution, radar/heatmap/correlation analysis, smart search, and dedicated interaction/crystal/electron/damage/thermal/track/polymer scene modes
 
 ## Scientific Databases
 
