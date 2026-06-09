@@ -87,6 +87,13 @@
           <button data-tab="history">Experiment History</button>
           <button data-tab="learning">Learning Mode</button>
           <button data-tab="research-tools">Research Mode</button>
+          <button data-tab="material-explorer">Material Explorer</button>
+          <button data-tab="crystal-bragg">Crystal & Bragg</button>
+          <button data-tab="multilayer-evolution">Multilayer & Time</button>
+          <button data-tab="radiation-ai">Radiation & AI</button>
+          <button data-tab="publication-notebook">Publication & Notebook</button>
+          <button data-tab="grand-comparison">Grand Comparison</button>
+          <button data-tab="facility-srim">Facility & SRIM</button>
           <button data-tab="export-center">Export Center</button>
           <button data-tab="database-explorer">Database Explorer</button>
         </nav>
@@ -196,6 +203,178 @@
             </div>
             <canvas id="sweepChart" class="wide-chart"></canvas>
             <div class="table-wrap"><table id="sweepTable"></table></div>
+          </section>
+
+          <section class="tab-view" id="material-explorer">
+            <div class="tool-row">
+              <label>Search <input id="materialExplorerQuery" type="search" placeholder="name, formula, class" /></label>
+              <label>Class <select id="materialExplorerClass"></select></label>
+              <label>Sort by
+                <select id="materialExplorerSort">
+                  <option value="radiationScore">Radiation hardness</option>
+                  <option value="density">Density</option>
+                  <option value="electrical_conductivity">Electrical conductivity</option>
+                  <option value="thermal_conductivity">Thermal conductivity</option>
+                  <option value="bandgap">Bandgap</option>
+                  <option value="displacement_energy">Displacement energy</option>
+                  <option value="dielectric_constant">Dielectric constant</option>
+                </select>
+              </label>
+              <label class="check-label"><input id="materialExplorerRadiation" type="checkbox" /> Radiation resistant only</label>
+            </div>
+            <p id="materialExplorerCount" class="database-count"></p>
+            <div class="table-wrap explorer-table"><table id="materialExplorerTable"></table></div>
+          </section>
+
+          <section class="tab-view" id="crystal-bragg">
+            <div class="module-grid">
+              <article class="module-card">
+                <div class="section-head">
+                  <div><h2>Crystal Structure Engine</h2><p>Unit cell, lattice state, defect clusters, and distortion sketch.</p></div>
+                  <label>State
+                    <select id="crystalState">
+                      <option value="before">Before irradiation</option>
+                      <option value="during">During irradiation</option>
+                      <option value="after">After irradiation</option>
+                    </select>
+                  </label>
+                </div>
+                <canvas id="crystalCanvas" class="mini-canvas"></canvas>
+                <div class="table-wrap"><table id="crystalTable"></table></div>
+              </article>
+              <article class="module-card">
+                <div class="section-head">
+                  <div><h2>Bragg Peak Module</h2><p>Compares H, He, Ar, Kr, Xe, and Au in the selected target.</p></div>
+                  <button id="runBragg" class="primary">Update Bragg</button>
+                </div>
+                <canvas id="braggChart" class="mini-canvas"></canvas>
+                <div class="table-wrap"><table id="braggTable"></table></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="tab-view" id="multilayer-evolution">
+            <div class="module-grid">
+              <article class="module-card">
+                <div class="section-head">
+                  <div><h2>Multi-layer Target</h2><p>Sequential energy loss through a 4-layer stack, capped by the engine at 20 layers.</p></div>
+                  <button id="runMultilayer" class="primary">Update Stack</button>
+                </div>
+                <div class="table-wrap"><table id="multilayerTable"></table></div>
+              </article>
+              <article class="module-card">
+                <div class="section-head"><div><h2>Time Evolution</h2><p>Damage, temperature, conductivity, bandgap, and hardness over time.</p></div></div>
+                <canvas id="timeChart" class="mini-canvas"></canvas>
+                <div class="table-wrap"><table id="timeTable"></table></div>
+              </article>
+              <article class="module-card">
+                <div class="section-head"><div><h2>Annealing Recovery</h2><p>Thermal recovery estimates from temperature and duration.</p></div></div>
+                <div class="tool-row compact-row">
+                  <label>Temperature K <input id="annealTemp" type="number" min="300" max="1600" value="700" /></label>
+                  <label>Duration s <input id="annealDuration" type="number" min="1" value="3600" /></label>
+                  <button id="runAnneal" class="primary">Update Anneal</button>
+                </div>
+                <div class="table-wrap"><table id="annealTable"></table></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="tab-view" id="radiation-ai">
+            <div class="module-grid">
+              <article class="module-card">
+                <div class="section-head">
+                  <div><h2>Radiation Hardness Lab</h2><p>Ranks materials by density, displacement energy, thermal conductivity, bandgap, and tolerance labels.</p></div>
+                  <button id="runHardnessRanking" class="primary">Rank Materials</button>
+                </div>
+                <div class="table-wrap"><table id="hardnessTable"></table></div>
+              </article>
+              <article class="module-card">
+                <div class="section-head"><div><h2>AI Recommendation Engine</h2><p>Goal-driven ion, material, energy, and fluence suggestions.</p></div></div>
+                <div class="tool-row compact-row">
+                  <label>Goal
+                    <select id="recommendGoal">
+                      <option>Improve hardness</option>
+                      <option>Increase conductivity</option>
+                      <option>Maximize radiation resistance</option>
+                      <option>Surface modification</option>
+                    </select>
+                  </label>
+                  <button id="runRecommend" class="primary">Recommend</button>
+                </div>
+                <div class="table-wrap"><table id="recommendationTable"></table></div>
+              </article>
+              <article class="module-card">
+                <div class="section-head"><div><h2>Reverse Engineering Mode</h2><p>Suggests a beam recipe from desired conductivity, hardness, and bandgap targets.</p></div></div>
+                <div class="tool-row compact-row">
+                  <label>Conductivity S/m <input id="desiredConductivity" type="number" value="1000" /></label>
+                  <label>Hardness change % <input id="desiredHardness" type="number" value="25" /></label>
+                  <label>Bandgap eV <input id="desiredBandgap" type="number" step="0.1" value="1.5" /></label>
+                  <button id="runReverse" class="primary">Solve</button>
+                </div>
+                <div class="table-wrap"><table id="reverseTable"></table></div>
+              </article>
+              <article class="module-card">
+                <div class="section-head"><div><h2>Application Labs</h2><p>Semiconductor device, polymer irradiation, surface engineering, ion tracks, and digital twin outputs.</p></div></div>
+                <div class="table-wrap"><table id="deviceTable"></table></div>
+                <div class="table-wrap stacked-table"><table id="polymerTable"></table></div>
+                <div class="table-wrap stacked-table"><table id="surfaceTable"></table></div>
+                <div class="table-wrap stacked-table"><table id="twinTable"></table></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="tab-view" id="publication-notebook">
+            <div class="module-grid">
+              <article class="module-card">
+                <div class="section-head">
+                  <div><h2>Publication Generator</h2><p>Creates report sections from the current simulation.</p></div>
+                  <button id="generatePublication" class="primary">Generate</button>
+                </div>
+                <textarea id="publicationText" class="lab-textarea" readonly></textarea>
+              </article>
+              <article class="module-card">
+                <div class="section-head"><div><h2>Research Notebook</h2><p>Local experiment notes for the current browser session.</p></div></div>
+                <textarea id="notebookNotes" class="lab-textarea short" placeholder="Observation, hypothesis, sample ID, or planned follow-up"></textarea>
+                <button id="addNotebook" class="primary">Add Notebook Entry</button>
+                <div class="table-wrap stacked-table"><table id="notebookTable"></table></div>
+              </article>
+              <article class="module-card">
+                <div class="section-head"><div><h2>Experimental Uncertainty</h2><p>Combined uncertainty from energy, fluence, and beam current assumptions.</p></div></div>
+                <div class="table-wrap"><table id="uncertaintyTable"></table></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="tab-view" id="grand-comparison">
+            <div class="tool-row">
+              <label>Ions <input id="grandIons" type="text" value="H,He,Ar,Kr,Xe,Au" /></label>
+              <label>Materials <input id="grandMaterials" type="text" value="Silicon,Diamond,Iron,PTFE (Teflon),PEEK,Alumina" /></label>
+              <button id="runGrandComparison" class="primary">Run Matrix</button>
+            </div>
+            <canvas id="grandHeatmap" class="wide-chart"></canvas>
+            <div class="table-wrap"><table id="grandTable"></table></div>
+          </section>
+
+          <section class="tab-view" id="facility-srim">
+            <div class="module-grid">
+              <article class="module-card">
+                <div class="section-head">
+                  <div><h2>Accelerator Facility Presets</h2><p>Beamline envelopes for quick feasibility checks.</p></div>
+                  <label>Facility <select id="facilitySelect"></select></label>
+                </div>
+                <div class="table-wrap"><table id="facilityTable"></table></div>
+              </article>
+              <article class="module-card">
+                <div class="section-head">
+                  <div><h2>SRIM/TRIM Comparison</h2><p>Paste numeric rows as energy, electronic stopping, nuclear stopping, range.</p></div>
+                  <button id="compareSrim" class="primary">Compare</button>
+                </div>
+                <textarea id="srimText" class="lab-textarea short">500 1.10 0.42 850
+1000 1.35 0.30 2200
+2000 1.70 0.22 6100</textarea>
+                <div class="table-wrap stacked-table"><table id="srimTable"></table></div>
+              </article>
+            </div>
           </section>
 
           <section class="tab-view" id="export-center">

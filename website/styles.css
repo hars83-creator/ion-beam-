@@ -31,7 +31,8 @@ body {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
 
@@ -53,7 +54,8 @@ button.primary {
 }
 
 input,
-select {
+select,
+textarea {
   min-height: 34px;
   width: 100%;
   border: 1px solid var(--line);
@@ -66,6 +68,12 @@ select {
 input[type="range"] {
   min-height: 18px;
   padding: 0;
+  accent-color: var(--cyan);
+}
+
+input[type="checkbox"] {
+  width: auto;
+  min-height: auto;
   accent-color: var(--cyan);
 }
 
@@ -289,7 +297,8 @@ label output {
 .property-item,
 .data-panel,
 .equation-grid article,
-.learning-grid article {
+.learning-grid article,
+.module-card {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -494,6 +503,63 @@ dd {
   margin: 0;
 }
 
+.compact-row label {
+  min-width: 120px;
+}
+
+.check-label {
+  display: flex;
+  min-height: 34px;
+  align-items: center;
+  gap: 8px;
+}
+
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(300px, 1fr));
+  gap: 9px;
+}
+
+.module-card {
+  display: grid;
+  align-content: start;
+  gap: 9px;
+}
+
+.module-card .section-head {
+  margin-bottom: 0;
+  align-items: flex-start;
+}
+
+.module-card .section-head label {
+  min-width: 170px;
+  margin: 0;
+}
+
+.mini-canvas {
+  width: 100%;
+  height: 320px;
+  min-height: 260px;
+  border: 1px solid var(--line);
+  background: #07111f;
+}
+
+.lab-textarea {
+  min-height: 330px;
+  padding: 10px;
+  resize: vertical;
+  line-height: 1.45;
+  color: #dff8ff;
+}
+
+.lab-textarea.short {
+  min-height: 120px;
+}
+
+.stacked-table {
+  margin-top: 8px;
+}
+
 .table-wrap {
   max-width: 100%;
   overflow: auto;
@@ -601,6 +667,7 @@ tbody tr:hover {
   .split-grid,
   .equation-grid,
   .learning-grid,
+  .module-grid,
   .export-grid {
     grid-template-columns: 1fr;
   }

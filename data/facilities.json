@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "facilities": [
+    {
+      "name": "IUAC Pelletron",
+      "type": "Tandem accelerator",
+      "maximum_energy_mev": 200,
+      "energy_range_mev": [0.5, 200],
+      "available_ions": ["H", "He", "C", "O", "Si", "Ar", "Fe", "Ni", "Au"],
+      "current_limits_na": [0.01, 1000]
+    },
+    {
+      "name": "Cyclotron",
+      "type": "Cyclotron",
+      "maximum_energy_mev": 70,
+      "energy_range_mev": [5, 70],
+      "available_ions": ["H", "D", "He", "C", "O"],
+      "current_limits_na": [1, 100000]
+    },
+    {
+      "name": "Synchrotron",
+      "type": "Synchrotron",
+      "maximum_energy_mev": 100000,
+      "energy_range_mev": [100, 100000],
+      "available_ions": ["H", "C", "O", "Ar", "Kr", "Xe", "U"],
+      "current_limits_na": [0.001, 100]
+    },
+    {
+      "name": "Heavy Ion Facility",
+      "type": "Heavy-ion beamline",
+      "maximum_energy_mev": 1000,
+      "energy_range_mev": [1, 1000],
+      "available_ions": ["Ar", "Kr", "Xe", "Au", "Pb", "U"],
+      "current_limits_na": [0.001, 10000]
+    },
+    {
+      "name": "Medical Beamline",
+      "type": "Therapy and radiobiology",
+      "maximum_energy_mev": 430,
+      "energy_range_mev": [20, 430],
+      "available_ions": ["H", "He", "C", "O"],
+      "current_limits_na": [0.1, 1000]
+    }
+  ]
+}

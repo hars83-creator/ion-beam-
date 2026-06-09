@@ -12,6 +12,8 @@ A virtual ion beam irradiation laboratory for understanding ion-matter interacti
 - Structured material database covering metals, alloys, oxides, semiconductors, polymers, and insulators.
 - JSON-backed research database with 118 elements, stable isotopes, common ion charge states, and 120+ materials.
 - Browser research dashboard with twelve tabs, parameter sweeps, comparisons, experiment history, learning content, and exports.
+- Advanced research modules for material exploration, crystal structures, Bragg peak comparison, multi-layer targets, time evolution, annealing recovery, radiation hardness ranking, AI-style recommendations, reverse beam recipes, device/polymer/surface response, uncertainty, SRIM comparison, and publication/notebook output.
+- HTTP API endpoints for headless simulation and research summaries when served with `run_web.py`.
 - CSV, graph, report, screenshot, save, and load actions.
 - Static website preview in `website/`.
 
@@ -71,6 +73,7 @@ The browser laboratory includes:
 - learning levels
 - live physics-driven interaction animation
 - JSON, CSV, report, profile, history, and session exports
+- advanced material explorer, crystal/Bragg lab, multilayer/time lab, radiation/AI lab, publication notebook, grand comparison matrix, accelerator facility presets, and SRIM/TRIM comparison
 
 ## Scientific Databases
 
@@ -99,6 +102,8 @@ python tools/generate_databases.py
 - `graphs.py` - embedded matplotlib dashboards.
 - `utilities.py` - formatting, reports, CSV, save/load.
 - `database.py` - JSON scientific database loader, filters, search, and validation.
+- `research_modules.py` - advanced research lab calculations and reporting helpers.
+- `lab_server.py` - static web server request handler with `/api/simulate`, `/api/research`, and `/api/srim/compare`.
 - `run_web.py` - Codespaces-friendly browser laboratory server.
 - `tools/generate_databases.py` - reproducible JSON database generator.
 

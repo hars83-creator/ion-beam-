@@ -1,7 +1,10 @@
-const db = { elements: [], materials: [], isotopes: [] };
+const db = { elements: [], materials: [], isotopes: [], facilities: [] };
 const elementBySymbol = new Map();
 const materialByName = new Map();
 const isotopesBySymbol = new Map();
+const timelineSeconds = [0, 10, 60, 600, 3600, 86400, 604800, 2592000];
+const braggComparisonIons = ["H", "He", "Ar", "Kr", "Xe", "Au"];
+const chartColors = ["#4dd8ff", "#ffd166", "#ff5f7e", "#6ee7b7", "#b48cff", "#ff9f43", "#8cff9b", "#f472b6"];
 
 const controls = Object.fromEntries(
   ["ion", "isotope", "charge", "energy", "materialClass", "material", "fluence", "time", "let", "angle", "spread", "intensity"]
@@ -21,6 +24,7 @@ let particles = [];
 let flashes = [];
 let currentResult = null;
 let experimentHistory = loadHistory();
+let notebookEntries = loadNotebook();
 
 const fallbackElements = [
   { name: "Hydrogen", scientific_name: "Hydrogen", symbol: "H", atomic_number: 1, atomic_mass: 1.008, period: 1, group: 1, block: "s", category: "Nonmetals", density: 0.0000899, electron_configuration: "1s1", common_charge_states: [1], stable_isotopes: [1, 2] },
@@ -38,6 +42,14 @@ const fallbackMaterials = [
   fallbackMaterial("PTFE (Teflon)", "(C2F4)n", "Polymers", "Thermoplastic polymers", 2.2, 12, 5.8, 12, 0.64, 0.26, 2.5, 0.32, 1.5),
   fallbackMaterial("Gold", "Au", "Metals", "Pure metals", 19.3, 196.97, 0, 35, 1.68, 1.02, 0.72, 2.4, 0.45),
   fallbackMaterial("Diamond", "C", "Semiconductors", "Wide bandgap semiconductors", 3.51, 12.011, 5.47, 43, 0.7, 0.5, 1.65, 0.02, 0.5),
+];
+
+const fallbackFacilities = [
+  { name: "IUAC Pelletron", type: "Tandem accelerator", maximum_energy_mev: 200, energy_range_mev: [0.5, 200], available_ions: ["H", "He", "C", "O", "Si", "Ar", "Fe", "Ni", "Au"], current_limits_na: [0.01, 1000] },
+  { name: "Cyclotron", type: "Cyclotron", maximum_energy_mev: 70, energy_range_mev: [5, 70], available_ions: ["H", "D", "He", "C", "O"], current_limits_na: [1, 100000] },
+  { name: "Synchrotron", type: "Synchrotron", maximum_energy_mev: 100000, energy_range_mev: [100, 100000], available_ions: ["H", "C", "O", "Ar", "Kr", "Xe", "U"], current_limits_na: [0.001, 100] },
+  { name: "Heavy Ion Facility", type: "Heavy-ion beamline", maximum_energy_mev: 1000, energy_range_mev: [1, 1000], available_ions: ["Ar", "Kr", "Xe", "Au", "Pb", "U"], current_limits_na: [0.001, 10000] },
+  { name: "Medical Beamline", type: "Therapy and radiobiology", maximum_energy_mev: 430, energy_range_mev: [20, 430], available_ions: ["H", "He", "C", "O"], current_limits_na: [0.1, 1000] },
 ];
 
 function fallbackMaterial(name, formula, materialClass, subclass, density, atomicMass, bandgap, displacement, se, sn, range, sputter, specificHeat) {
@@ -63,22 +75,25 @@ function fallbackMaterial(name, formula, materialClass, subclass, density, atomi
 
 async function loadDatabases() {
   try {
-    const [elementsPayload, materialsPayload, isotopesPayload] = await Promise.all([
+    const [elementsPayload, materialsPayload, isotopesPayload, facilitiesPayload] = await Promise.all([
       fetch("../data/elements.json").then(requireOk).then((response) => response.json()),
       fetch("../data/materials.json").then(requireOk).then((response) => response.json()),
       fetch("../data/isotopes.json").then(requireOk).then((response) => response.json()),
+      fetch("../data/facilities.json").then(requireOk).then((response) => response.json()),
     ]);
     db.elements = elementsPayload.elements;
     db.materials = materialsPayload.materials;
     db.isotopes = isotopesPayload.isotopes;
+    db.facilities = facilitiesPayload.facilities;
     document.querySelector("#databaseStatus").textContent =
-      `${db.elements.length} elements, ${db.isotopes.length} stable isotope records, ${db.materials.length} materials loaded.`;
+      `${db.elements.length} elements, ${db.isotopes.length} stable isotope records, ${db.materials.length} materials, ${db.facilities.length} facilities loaded.`;
   } catch (error) {
     db.elements = fallbackElements;
     db.materials = fallbackMaterials;
     db.isotopes = fallbackElements.flatMap((element) =>
       (element.stable_isotopes || []).map((mass) => ({ symbol: element.symbol, element: element.name, mass_number: mass, isotope_label: `${element.symbol}-${mass}`, stable: true })),
     );
+    db.facilities = fallbackFacilities;
     document.querySelector("#databaseStatus").textContent =
       "Fallback database active. Serve the repository over HTTP to load the full JSON research database.";
     addLog(`Database fallback: ${error.message}`);
@@ -113,6 +128,8 @@ function populateControls() {
   populateOptions("#compareMaterialB", db.materials, "name", "name", materialByName.has("Silicon") ? "Silicon" : db.materials[1]?.name);
   populateOptions("#compareIonA", db.elements, "symbol", "symbol", "Ar");
   populateOptions("#compareIonB", db.elements, "symbol", "symbol", elementBySymbol.has("Xe") ? "Xe" : db.elements[1]?.symbol);
+  document.querySelector("#materialExplorerClass").innerHTML = `<option value="">All classes</option>${classes.map((value) => `<option>${value}</option>`).join("")}`;
+  populateOptions("#facilitySelect", db.facilities, "name", "name", db.facilities[0]?.name);
 
   const categories = [...new Set(db.elements.map((entry) => entry.category))].sort();
   document.querySelector("#elementCategory").innerHTML = `<option value="">All categories</option>${categories.map((value) => `<option>${value}</option>`).join("")}`;
@@ -122,6 +139,7 @@ function populateControls() {
 
 function populateOptions(selector, records, valueKey, labelKey, selectedValue) {
   const select = document.querySelector(selector);
+  if (!select) return;
   select.innerHTML = records.map((record) => `<option value="${record[valueKey]}">${record[labelKey]}</option>`).join("");
   if (selectedValue) select.value = selectedValue;
 }
@@ -196,6 +214,7 @@ function calculate(overrides = {}) {
   const sputter = stop.sputter_yield * (0.03 + 0.45 * (4 * state.mass * atomicMass / (state.mass + atomicMass) ** 2) / (1 + energy / 800)) *
     (1 + 0.015 * state.angle);
   const velocity = Math.sqrt(2 * energy * 1000 * 1.602176634e-19 / (state.mass * 1.6605390666e-27));
+  const beamCurrentNa = charge * 1.602176634e-19 * state.fluence / Math.max(state.time, 1e-9) * 1e9;
 
   const profile = [];
   for (let index = 0; index < 160; index += 1) {
@@ -236,6 +255,7 @@ function calculate(overrides = {}) {
     thermalSpike,
     sputter,
     velocity,
+    beamCurrentNa,
     profile,
   };
 }
@@ -255,6 +275,7 @@ function syncAll() {
   renderIonProperties(currentResult.element);
   renderMaterialProperties(currentResult.material);
   renderCharts();
+  renderActiveTab(document.querySelector(".tab-view.active")?.id);
 }
 
 function renderMetrics() {
@@ -276,6 +297,7 @@ function renderLiveReadout() {
     Isotope: `${currentResult.mass} amu`,
     Material: currentResult.material.name,
     "Beam flux": `${(currentResult.fluence / currentResult.time).toExponential(2)} cm^-2 s^-1`,
+    "Beam current": `${currentResult.beamCurrentNa.toExponential(2)} nA/cm^2`,
     "Secondary electrons": currentResult.secondaryElectrons.toExponential(2),
     Interstitials: currentResult.interstitials.toExponential(2),
     "Sputter yield": currentResult.sputter.toFixed(3),
@@ -355,6 +377,70 @@ function renderDl(target, values) {
 function renderTable(target, headers, rows) {
   target.innerHTML = `<thead><tr>${headers.map((header) => `<th>${header}</th>`).join("")}</tr></thead>` +
     `<tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${cell ?? "-"}</td>`).join("")}</tr>`).join("")}</tbody>`;
+}
+
+function safeNumber(value, fallback = 0) {
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : fallback;
+}
+
+function clamp(value, minimum, maximum) {
+  return Math.min(maximum, Math.max(minimum, value));
+}
+
+function formatNumber(value, digits = 3) {
+  const numeric = safeNumber(value);
+  if (Math.abs(numeric) >= 1e5 || (Math.abs(numeric) > 0 && Math.abs(numeric) < 1e-2)) return numeric.toExponential(digits);
+  return numeric.toFixed(digits);
+}
+
+function radiationHardnessScore(material) {
+  const density = safeNumber(material.density, 1);
+  const displacement = safeNumber(material.displacement_energy, 25);
+  const thermal = safeNumber(material.thermal_conductivity, 1);
+  const bandgap = safeNumber(material.bandgap, 0);
+  const tolerance = String(material.radiation_tolerance || material.radiation_hardness || "").toLowerCase();
+  let score = 18 * Math.log10(thermal + 1) + 0.45 * displacement + 4 * bandgap + 2 * density;
+  if (tolerance.includes("very high")) score += 25;
+  else if (tolerance.includes("high")) score += 15;
+  else if (tolerance.includes("low")) score -= 12;
+  return clamp(score, 0, 100);
+}
+
+function radiationCategory(score) {
+  if (score >= 80) return "Excellent";
+  if (score >= 60) return "Good";
+  if (score >= 35) return "Moderate";
+  return "Poor";
+}
+
+function materialDamageScore(result) {
+  return clamp(40 * result.dpa + 10 * result.sputter + result.temperature / 1000, 0, 100);
+}
+
+function defaultLayerStack() {
+  return [
+    { material: materialByName.get("PTFE (Teflon)") || materialByName.get("Kapton") || currentResult.material, thickness: 120 },
+    { material: materialByName.get("SiO2") || materialByName.get("Silica Glass") || currentResult.material, thickness: 80 },
+    { material: materialByName.get("Silicon") || currentResult.material, thickness: 300 },
+    { material: materialByName.get("Copper") || materialByName.get("Iron") || currentResult.material, thickness: 100 },
+  ].filter((layer) => layer.material);
+}
+
+function timeLabel(seconds) {
+  if (seconds < 60) return `${seconds}s`;
+  if (seconds < 3600) return `${(seconds / 60).toFixed(0)}m`;
+  if (seconds < 86400) return `${(seconds / 3600).toFixed(0)}h`;
+  if (seconds < 604800) return `${(seconds / 86400).toFixed(0)}d`;
+  return `${(seconds / 604800).toFixed(1)}w`;
+}
+
+function parseNameList(text, availableMap) {
+  return text.split(",")
+    .map((value) => value.trim())
+    .filter(Boolean)
+    .filter((value) => availableMap.has(value))
+    .slice(0, 10);
 }
 
 function buildPeriodicTable() {
@@ -663,6 +749,656 @@ function renderDatabaseExplorer() {
   renderTable(document.querySelector("#databaseTable"), headers, rows.slice(0, 300));
 }
 
+function renderMaterialExplorer() {
+  const query = document.querySelector("#materialExplorerQuery").value.toLowerCase();
+  const classFilter = document.querySelector("#materialExplorerClass").value;
+  const sortKey = document.querySelector("#materialExplorerSort").value;
+  const resistantOnly = document.querySelector("#materialExplorerRadiation").checked;
+  const records = db.materials
+    .map((material) => ({ ...material, radiationScore: radiationHardnessScore(material) }))
+    .filter((material) => {
+      const haystack = `${material.name} ${material.formula} ${material.material_class} ${material.subclass} ${material.radiation_tolerance}`.toLowerCase();
+      const resistant = String(material.radiation_tolerance || "").toLowerCase().includes("high");
+      return (!query || haystack.includes(query)) && (!classFilter || material.material_class === classFilter) && (!resistantOnly || resistant);
+    })
+    .sort((a, b) => safeNumber(b[sortKey], -Infinity) - safeNumber(a[sortKey], -Infinity));
+  document.querySelector("#materialExplorerCount").textContent = `${records.length} matching materials`;
+  renderTable(document.querySelector("#materialExplorerTable"), [
+    "Material", "Formula", "Class", "Subclass", "Density", "Bandgap", "Conductivity", "Displacement eV", "Radiation score", "Tolerance",
+  ], records.slice(0, 300).map((material) => [
+    material.name,
+    material.formula,
+    material.material_class,
+    material.subclass,
+    formatNumber(material.density, 3),
+    material.bandgap ?? "-",
+    formatNumber(material.electrical_conductivity, 2),
+    formatNumber(material.displacement_energy, 2),
+    `${material.radiationScore.toFixed(1)} (${radiationCategory(material.radiationScore)})`,
+    material.radiation_tolerance,
+  ]));
+}
+
+function crystalTemplate(material) {
+  const text = `${material.name} ${material.subclass} ${material.crystal_structure}`.toLowerCase();
+  let name = "FCC";
+  let unitCell = "cubic";
+  let symmetry = "Fm-3m";
+  let positions = [[0, 0, 0], [0, 0.5, 0.5], [0.5, 0, 0.5], [0.5, 0.5, 0]];
+  if (["Iron", "Tungsten", "Chromium"].includes(material.name) || text.includes("bcc")) {
+    name = "BCC";
+    symmetry = "Im-3m";
+    positions = [[0, 0, 0], [0.5, 0.5, 0.5]];
+  } else if (["Titanium", "Cobalt", "Magnesium"].includes(material.name) || text.includes("hcp")) {
+    name = "HCP";
+    unitCell = "hexagonal";
+    symmetry = "P63/mmc";
+    positions = [[0, 0, 0], [0.67, 0.33, 0.5]];
+  } else if (["Silicon", "Germanium", "Diamond"].includes(material.name) || text.includes("diamond")) {
+    name = "Diamond Cubic";
+    symmetry = "Fd-3m";
+    positions = [[0, 0, 0], [0.25, 0.25, 0.25], [0.5, 0.5, 0], [0.75, 0.75, 0.25]];
+  } else if (["GaAs", "InP", "ZnSe", "CdTe"].includes(material.name) || text.includes("zinc")) {
+    name = "Zinc Blende";
+    symmetry = "F-43m";
+    positions = [[0, 0, 0], [0.25, 0.25, 0.25]];
+  } else if (["GaN", "AlN", "ZnO"].includes(material.name) || text.includes("wurtzite")) {
+    name = "Wurtzite";
+    unitCell = "hexagonal";
+    symmetry = "P63mc";
+    positions = [[0, 0, 0], [0.33, 0.67, 0.5]];
+  } else if (text.includes("perovskite")) {
+    name = "Perovskite";
+    symmetry = "Pm-3m";
+    positions = [[0, 0, 0], [0.5, 0.5, 0.5], [0.5, 0.5, 0], [0.5, 0, 0.5], [0, 0.5, 0.5]];
+  } else if (text.includes("amorphous") || text.includes("glass") || material.material_class === "Polymers") {
+    name = "Amorphous";
+    unitCell = "non-periodic";
+    symmetry = "none";
+    positions = [];
+  }
+  const lattice = clamp(0.18 * (safeNumber(material.atomic_mass, 50) / Math.max(safeNumber(material.density, 1), 0.1)) ** (1 / 3), 0.18, 1.2);
+  return { name, unitCell, symmetry, positions, lattice };
+}
+
+function drawCrystal(canvas, template, state) {
+  const sized = resizeCanvas(canvas);
+  if (!sized) return;
+  const { context, width, height } = sized;
+  context.fillStyle = "#07111f";
+  context.fillRect(0, 0, width, height);
+  context.strokeStyle = "#263f56";
+  context.strokeRect(0.5, 0.5, width - 1, height - 1);
+  context.fillStyle = "#dff8ff";
+  context.font = "12px Inter, sans-serif";
+  context.fillText(`${currentResult.material.name} | ${template.name} | ${state}`, 14, 22);
+  const left = 42;
+  const top = 54;
+  const cell = Math.min((width - 90) / 5, (height - 95) / 4);
+  const defectStrength = state === "before" ? 0 : state === "during" ? clamp(currentResult.letValue / 6, 0.08, 0.45) : clamp(currentResult.dpa * 100 + currentResult.sputter, 0.04, 0.35);
+
+  if (template.name === "Amorphous") {
+    for (let index = 0; index < 120; index += 1) {
+      const x = left + ((Math.sin(index * 12.9898) + 1) / 2) * (width - 90);
+      const y = top + ((Math.sin(index * 78.233) + 1) / 2) * (height - 105);
+      const damaged = Math.sin(index * 3.17 + defectStrength * 10) > 1 - defectStrength;
+      context.fillStyle = damaged ? "#ff5f7e" : "#5d8fba";
+      context.beginPath();
+      context.arc(x, y, damaged ? 4.4 : 3.2, 0, Math.PI * 2);
+      context.fill();
+    }
+  } else {
+    for (let ix = 0; ix < 5; ix += 1) {
+      for (let iy = 0; iy < 4; iy += 1) {
+        const x0 = left + ix * cell;
+        const y0 = top + iy * cell;
+        context.strokeStyle = "#234058";
+        context.strokeRect(x0, y0, cell, cell);
+        for (const [px, py, pz] of template.positions) {
+          const index = ix * 17 + iy * 13 + Math.round(px * 10) + Math.round(py * 10);
+          const distorted = state !== "before" ? Math.sin(index * 1.73) * defectStrength * 12 : 0;
+          const x = x0 + 8 + px * (cell - 16) + pz * 10 + distorted;
+          const y = y0 + 8 + py * (cell - 16) - pz * 8 - distorted * 0.4;
+          const vacancy = state === "after" && Math.sin(index * 4.2) > 1 - defectStrength;
+          const interstitial = state !== "before" && Math.cos(index * 2.7) > 1 - defectStrength * 0.8;
+          context.strokeStyle = vacancy ? "#ff5f7e" : "#5d8fba";
+          context.fillStyle = vacancy ? "#07111f" : "#78d7ff";
+          context.beginPath();
+          context.arc(x, y, vacancy ? 5 : 4, 0, Math.PI * 2);
+          vacancy ? context.stroke() : context.fill();
+          if (interstitial) {
+            context.fillStyle = "#ffd166";
+            context.beginPath();
+            context.arc(x + 9, y - 9, 2.5, 0, Math.PI * 2);
+            context.fill();
+          }
+        }
+      }
+    }
+  }
+  if (state === "during") {
+    const heatX = width * 0.72;
+    const heatY = height * 0.52;
+    const heat = context.createRadialGradient(heatX, heatY, 2, heatX, heatY, Math.min(width, height) * 0.35);
+    heat.addColorStop(0, "#ff5f7e55");
+    heat.addColorStop(0.45, "#ffd16622");
+    heat.addColorStop(1, "#07111f00");
+    context.fillStyle = heat;
+    context.fillRect(0, 0, width, height);
+  }
+}
+
+function renderCrystalBragg() {
+  const template = crystalTemplate(currentResult.material);
+  const state = document.querySelector("#crystalState").value;
+  drawCrystal(document.querySelector("#crystalCanvas"), template, state);
+  renderTable(document.querySelector("#crystalTable"), ["Field", "Value"], [
+    ["Structure", template.name],
+    ["Unit cell", template.unitCell],
+    ["Symmetry", template.symmetry],
+    ["Lattice constant estimate", `${template.lattice.toFixed(3)} nm`],
+    ["Current state", state],
+    ["Dominant defects", state === "before" ? "reference lattice" : state === "during" ? "thermal spike, recoil atoms, electron cloud" : "vacancies, interstitials, clusters, distortion"],
+  ]);
+
+  const records = braggComparisonIons
+    .filter((symbol) => elementBySymbol.has(symbol))
+    .map((symbol) => {
+      const result = calculate({ element: elementBySymbol.get(symbol), mass: elementBySymbol.get(symbol).atomic_mass });
+      const peak = result.profile.reduce((best, point) => (point.let > best.let ? point : best), result.profile[0]);
+      return { symbol, result, peak };
+    });
+  drawLineChart(document.querySelector("#braggChart"), "Bragg Peak LET Comparison", records.map((record, index) => ({
+    label: record.symbol,
+    color: chartColors[index % chartColors.length],
+    values: record.result.profile.map((point) => ({ x: point.depth, y: point.let })),
+  })), "keV/nm");
+  renderTable(document.querySelector("#braggTable"), ["Ion", "Range nm", "Peak depth nm", "Peak LET", "Vacancies", "DPA"], records.map((record) => [
+    record.symbol,
+    formatNumber(record.result.range, 2),
+    formatNumber(record.peak.depth, 2),
+    formatNumber(record.peak.let, 4),
+    record.result.vacancies.toExponential(3),
+    record.result.dpa.toExponential(3),
+  ]));
+}
+
+function runMultilayerStack() {
+  let remainingEnergy = currentResult.energy;
+  const rows = [];
+  for (const [index, layer] of defaultLayerStack().entries()) {
+    const result = calculate({ material: layer.material, energy: Math.max(remainingEnergy, 1) });
+    const fraction = Math.min(layer.thickness / Math.max(result.range, 1), 1);
+    const energyLoss = result.deposited * fraction;
+    rows.push({
+      index: index + 1,
+      material: layer.material.name,
+      thickness: layer.thickness,
+      energyIn: remainingEnergy,
+      loss: energyLoss,
+      energyOut: Math.max(remainingEnergy - energyLoss, 0),
+      letValue: result.letValue,
+      dpa: result.dpa * fraction,
+      temperature: result.temperature * fraction,
+    });
+    remainingEnergy = Math.max(remainingEnergy - energyLoss, 0);
+    if (remainingEnergy <= 0) break;
+  }
+  renderTable(document.querySelector("#multilayerTable"), ["Layer", "Material", "Thickness nm", "Energy in keV", "Loss keV", "Energy out keV", "LET", "DPA", "Temp rise K"], rows.map((row) => [
+    row.index,
+    row.material,
+    row.thickness,
+    formatNumber(row.energyIn, 2),
+    formatNumber(row.loss, 2),
+    formatNumber(row.energyOut, 2),
+    formatNumber(row.letValue, 4),
+    row.dpa.toExponential(3),
+    formatNumber(row.temperature, 2),
+  ]));
+}
+
+function timeEvolutionRecords() {
+  return timelineSeconds.map((seconds) => {
+    const logTime = Math.log10(seconds + 1);
+    const damageFactor = 1 - Math.exp(-currentResult.dpa * (1 + 0.15 * logTime));
+    const recovery = Math.min(0.18 * logTime, 0.65);
+    const effectiveDamage = Math.max(damageFactor * (1 - recovery), 0);
+    return {
+      seconds,
+      label: timeLabel(seconds),
+      defectDensity: currentResult.defectDensity * Math.max(0.1, 1 - recovery),
+      temperature: 300 + currentResult.temperature * Math.exp(-seconds / 600),
+      conductivity: currentResult.material.electrical_conductivity * Math.max(0.02, 1 - 0.75 * effectiveDamage),
+      bandgap: safeNumber(currentResult.material.bandgap, 0) + 0.12 * effectiveDamage,
+      hardness: 1 + 0.35 * effectiveDamage,
+    };
+  });
+}
+
+function renderTimeEvolution() {
+  const records = timeEvolutionRecords();
+  drawLineChart(document.querySelector("#timeChart"), "Time Evolution", [
+    { label: "Defects", color: "#ff5f7e", values: records.map((record) => ({ x: Math.log10(record.seconds + 1), y: record.defectDensity })) },
+    { label: "Temp K", color: "#ffd166", values: records.map((record) => ({ x: Math.log10(record.seconds + 1), y: record.temperature })) },
+    { label: "Hardness", color: "#6ee7b7", values: records.map((record) => ({ x: Math.log10(record.seconds + 1), y: record.hardness })) },
+  ], "mixed units");
+  renderTable(document.querySelector("#timeTable"), ["Time", "Defect density", "Temperature K", "Conductivity", "Bandgap eV", "Relative hardness"], records.map((record) => [
+    record.label,
+    record.defectDensity.toExponential(3),
+    formatNumber(record.temperature, 2),
+    formatNumber(record.conductivity, 3),
+    formatNumber(record.bandgap, 4),
+    formatNumber(record.hardness, 4),
+  ]));
+}
+
+function renderAnnealing() {
+  const temperature = safeNumber(document.querySelector("#annealTemp").value, 700);
+  const duration = safeNumber(document.querySelector("#annealDuration").value, 3600);
+  const recovery = clamp(1 - Math.exp((-duration / 3600) * Math.exp((temperature - 950) / 240)), 0, 0.98);
+  const rows = [
+    ["Recovery fraction", `${(recovery * 100).toFixed(2)} %`],
+    ["Remaining defect density", (currentResult.defectDensity * (1 - recovery)).toExponential(3)],
+    ["Conductivity recovery", `${(Math.min(recovery * 0.85, 0.95) * 100).toFixed(2)} %`],
+    ["Lattice restoration", `${(Math.min(recovery * 0.9, 0.98) * 100).toFixed(2)} %`],
+    ["Carrier lifetime recovery", `${(Math.min(recovery * 0.75, 0.9) * 100).toFixed(2)} %`],
+  ];
+  renderTable(document.querySelector("#annealTable"), ["Metric", "Estimate"], rows);
+}
+
+function renderMultilayerEvolution() {
+  runMultilayerStack();
+  renderTimeEvolution();
+  renderAnnealing();
+}
+
+function renderHardnessRanking() {
+  const records = db.materials
+    .map((material) => ({ material, score: radiationHardnessScore(material) }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 20);
+  renderTable(document.querySelector("#hardnessTable"), ["Rank", "Material", "Class", "Score", "Category", "Density", "Ed eV", "Bandgap", "Tolerance"], records.map((record, index) => [
+    index + 1,
+    record.material.name,
+    record.material.material_class,
+    record.score.toFixed(1),
+    radiationCategory(record.score),
+    formatNumber(record.material.density, 3),
+    formatNumber(record.material.displacement_energy, 2),
+    record.material.bandgap ?? "-",
+    record.material.radiation_tolerance,
+  ]));
+}
+
+function runRecommendation() {
+  const goal = document.querySelector("#recommendGoal").value.toLowerCase();
+  const candidateSymbols = ["H", "He", "C", "N", "O", "Ar", "Fe", "Kr", "Xe", "Au"].filter((symbol) => elementBySymbol.has(symbol));
+  const ionRecords = candidateSymbols.map((symbol) => {
+    const element = elementBySymbol.get(symbol);
+    let score = 50 + element.atomic_number * 0.15;
+    let energy = 500;
+    let fluence = 1e14;
+    if (goal.includes("conduct")) {
+      score = 100 / Math.max(element.atomic_number, 1);
+      energy = 150;
+      fluence = 5e14;
+    } else if (goal.includes("hard")) {
+      score = element.atomic_number * 0.8;
+      energy = 900;
+      fluence = 1e15;
+    } else if (goal.includes("surface")) {
+      score = element.atomic_number * 0.35 + 30;
+      energy = 80;
+      fluence = 8e14;
+    } else if (goal.includes("resistance")) {
+      score = Math.abs(element.atomic_number - 14) < 12 ? 75 : 55 + element.atomic_number * 0.1;
+      energy = 350;
+      fluence = 2e14;
+    }
+    return { symbol, score, energy, fluence };
+  }).sort((a, b) => b.score - a.score);
+  const materials = db.materials
+    .map((material) => ({ material, score: radiationHardnessScore(material) }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 5);
+  const rows = [
+    ["Recommended ion", ionRecords[0].symbol],
+    ["Energy", `${ionRecords[0].energy.toFixed(0)} keV`],
+    ["Fluence", `${ionRecords[0].fluence.toExponential(2)} ions/cm^2`],
+    ["Recommended material", materials[0]?.material.name || currentResult.material.name],
+    ["Material score", materials[0] ? materials[0].score.toFixed(1) : "-"],
+    ["Alternate ions", ionRecords.slice(1, 5).map((item) => `${item.symbol} (${item.score.toFixed(1)})`).join(", ")],
+  ];
+  renderTable(document.querySelector("#recommendationTable"), ["Recommendation", "Value"], rows);
+}
+
+function runReverseEngineering() {
+  const conductivity = safeNumber(document.querySelector("#desiredConductivity").value, 1000);
+  const hardness = safeNumber(document.querySelector("#desiredHardness").value, 25);
+  const bandgap = safeNumber(document.querySelector("#desiredBandgap").value, 1.5);
+  let material = "Silicon";
+  let ion = "H";
+  let energy = 120;
+  if (bandgap >= 4.5) {
+    material = materialByName.has("Diamond") ? "Diamond" : "GaN";
+    ion = "He";
+    energy = 350;
+  } else if (bandgap >= 3) {
+    material = materialByName.has("GaN") ? "GaN" : "SiC";
+    ion = "He";
+    energy = 350;
+  } else if (hardness > 20) {
+    material = materialByName.has("PEEK") ? "PEEK" : "Iron";
+    ion = "Ar";
+    energy = 850;
+  } else if (conductivity > 1e5) {
+    material = materialByName.has("Copper") ? "Copper" : "Iron";
+    ion = "H";
+    energy = 180;
+  }
+  renderTable(document.querySelector("#reverseTable"), ["Output", "Suggested value"], [
+    ["Ion", ion],
+    ["Target material", material],
+    ["Energy", `${energy.toFixed(0)} keV`],
+    ["Fluence", "7.50e14 ions/cm^2"],
+    ["Irradiation time", "600 s"],
+    ["Reason", bandgap >= 3 ? "wide-bandgap target requested" : hardness > 20 ? "high damage-hardening target requested" : conductivity > 1e5 ? "conductivity retention requested" : "balanced modification requested"],
+  ]);
+}
+
+function semiconductorDeviceResponse(result, material) {
+  const doseFactor = Math.max(Math.log10(result.dpa + 1e-12) + 12, 0);
+  const bandgap = safeNumber(material.bandgap, 1);
+  return {
+    "Device type": material.material_class === "Semiconductors" ? "MOSFET / detector material" : "generic dielectric stack",
+    "Threshold shift V": 0.035 * doseFactor * (1 + bandgap / 4),
+    "Leakage multiplier": Math.exp(Math.min(result.dpa * 12, 8)),
+    "Mobility loss %": clamp(result.dpa * 180, 0, 95),
+    "Carrier lifetime loss %": clamp(result.dpa * 240, 0, 98),
+  };
+}
+
+function polymerResponse(result, material) {
+  const fluenceFactor = Math.log10(Math.max(result.fluence / Math.max(result.time, 1) * 60, 1)) / 18;
+  const scissionBias = material.name.includes("PTFE") || material.name.includes("PVC") ? 0.55 : 0.35;
+  const crosslink = clamp(result.letValue * fluenceFactor * (1 - scissionBias), 0, 1);
+  const scission = clamp(result.letValue * fluenceFactor * scissionBias, 0, 1);
+  return {
+    "Crosslink density": crosslink,
+    "Chain scission": scission,
+    "Carbonization": clamp(result.thermalSpike / 3000, 0, 1),
+    "Radical fraction": clamp(result.secondaryElectrons / 1e5, 0, 1),
+    "Molecular weight retention": clamp(1 - scission * 0.65 + crosslink * 0.15, 0.05, 1.2),
+  };
+}
+
+function surfaceResponse(result) {
+  const fluenceTerm = Math.log10(Math.max(result.fluence / Math.max(result.time, 1) * 60, 1)) / 16;
+  const roughness = 1 + 35 * result.sputter * fluenceTerm;
+  const surfaceEnergy = 25 + 18 * Math.min(result.letValue, 5);
+  return {
+    "Roughness nm": roughness,
+    "Surface energy mJ/m2": surfaceEnergy,
+    "Contact angle deg": clamp(110 - surfaceEnergy * 0.55, 10, 130),
+    "Adhesion relative": clamp(surfaceEnergy / 60, 0.1, 2),
+  };
+}
+
+function ionTrackResponse(result) {
+  const radius = Math.max(0.4, 0.85 * Math.sqrt(Math.max(result.letValue, 1e-9)));
+  const area = Math.PI * (radius * 1e-7) ** 2;
+  return {
+    "Track radius nm": radius,
+    "Track length nm": result.range,
+    "Track density cm^-2": result.fluence,
+    "Track overlap": 1 - Math.exp(-result.fluence * area),
+  };
+}
+
+function digitalTwinResponse(result, material) {
+  const final = timeEvolutionRecords().at(-1);
+  return {
+    "Initial conductivity": material.electrical_conductivity,
+    "Current conductivity": material.electrical_conductivity * 0.75,
+    "Predicted conductivity": final.conductivity,
+    "Current bandgap": safeNumber(material.bandgap, 0) + 0.04,
+    "Predicted bandgap": final.bandgap,
+    "Defect density": result.defectDensity,
+  };
+}
+
+function renderApplicationLabs() {
+  const device = semiconductorDeviceResponse(currentResult, currentResult.material);
+  const polymer = polymerResponse(currentResult, currentResult.material);
+  const surface = surfaceResponse(currentResult);
+  const track = ionTrackResponse(currentResult);
+  const twin = digitalTwinResponse(currentResult, currentResult.material);
+  renderTable(document.querySelector("#deviceTable"), ["Semiconductor/device metric", "Value"], Object.entries(device).map(([key, value]) => [key, typeof value === "number" ? formatNumber(value, 4) : value]));
+  renderTable(document.querySelector("#polymerTable"), ["Polymer irradiation metric", "Value"], Object.entries(polymer).map(([key, value]) => [key, formatNumber(value, 4)]));
+  renderTable(document.querySelector("#surfaceTable"), ["Surface / ion-track metric", "Value"], [
+    ...Object.entries(surface).map(([key, value]) => [key, formatNumber(value, 4)]),
+    ...Object.entries(track).map(([key, value]) => [key, formatNumber(value, 4)]),
+  ]);
+  renderTable(document.querySelector("#twinTable"), ["Digital twin state", "Value"], Object.entries(twin).map(([key, value]) => [key, formatNumber(value, 4)]));
+}
+
+function renderRadiationAiLab() {
+  renderHardnessRanking();
+  runRecommendation();
+  runReverseEngineering();
+  renderApplicationLabs();
+}
+
+function renderUncertainty() {
+  const combined = Math.sqrt(0.02 ** 2 + 0.05 ** 2 + 0.01 ** 2);
+  const outputs = [
+    ["Range nm", currentResult.range],
+    ["LET keV/nm", currentResult.letValue],
+    ["DPA", currentResult.dpa],
+    ["Temperature rise K", currentResult.temperature],
+    ["Beam current nA/cm^2", currentResult.beamCurrentNa],
+  ];
+  renderTable(document.querySelector("#uncertaintyTable"), ["Output", "Value", "Low", "High", "Relative uncertainty"], outputs.map(([name, value]) => [
+    name,
+    formatNumber(value, 4),
+    formatNumber(value * (1 - combined), 4),
+    formatNumber(value * (1 + combined), 4),
+    `${(combined * 100).toFixed(2)} %`,
+  ]));
+}
+
+function publicationSections() {
+  const result = currentResult;
+  return {
+    Abstract: `${result.element.symbol} ion irradiation of ${result.material.name} was simulated using coupled stopping, damage, and thermal-spike estimates.`,
+    Methodology: `Incident ${result.element.symbol}${result.charge}+ ions at ${result.energy.toFixed(1)} keV were propagated through ${result.material.name}. Electronic and nuclear stopping were integrated over a depth profile with fluence ${result.fluence.toExponential(3)} ions/cm^2.`,
+    Results: `The estimated range is ${result.range.toFixed(2)} nm, LET is ${result.letValue.toFixed(5)} keV/nm, and damage is ${result.dpa.toExponential(3)} DPA. Electronic deposited energy is ${result.electronicDeposited.toFixed(3)} keV and nuclear deposited energy is ${result.nuclearDeposited.toFixed(3)} keV.`,
+    Discussion: `The present condition ${result.se > result.sn ? "is dominated by electronic stopping and electron excitation" : "is dominated by nuclear stopping and displacement cascades"}. The stopping-region thermal spike reaches ${result.thermalSpike.toExponential(3)} K.`,
+    Conclusion: `This virtual irradiation condition produces quantifiable ion-track damage, sputtering, and property-shift estimates that can be compared against alternate ions, target materials, annealing schedules, and SRIM/TRIM reference rows.`,
+    FigureCaption: `Depth-resolved energy, LET, stopping, defect, and thermal-spike profiles for ${result.element.symbol} in ${result.material.name}.`,
+  };
+}
+
+function generatePublication() {
+  const text = Object.entries(publicationSections())
+    .map(([heading, body]) => `${heading}\n${body}`)
+    .join("\n\n");
+  document.querySelector("#publicationText").value = text;
+}
+
+function addNotebookEntry() {
+  const notes = document.querySelector("#notebookNotes").value.trim();
+  const record = {
+    date: new Date().toISOString(),
+    ion: `${currentResult.element.symbol}${currentResult.charge}+`,
+    material: currentResult.material.name,
+    energy: currentResult.energy,
+    fluence: currentResult.fluence,
+    letValue: currentResult.letValue,
+    range: currentResult.range,
+    dpa: currentResult.dpa,
+    notes,
+  };
+  notebookEntries.unshift(record);
+  notebookEntries = notebookEntries.slice(0, 50);
+  persistNotebook();
+  renderNotebook();
+  document.querySelector("#notebookNotes").value = "";
+  addLog("Notebook entry added");
+}
+
+function renderNotebook() {
+  renderTable(document.querySelector("#notebookTable"), ["Date", "Ion", "Material", "Energy", "Range", "DPA", "Notes"], notebookEntries.map((record) => [
+    record.date,
+    record.ion,
+    record.material,
+    formatNumber(record.energy, 2),
+    formatNumber(record.range, 2),
+    Number(record.dpa).toExponential(3),
+    record.notes || "-",
+  ]));
+}
+
+function persistNotebook() {
+  try {
+    localStorage.setItem("ionLabNotebook", JSON.stringify(notebookEntries));
+  } catch (_error) {
+    // Notebook remains available in memory if browser storage is unavailable.
+  }
+}
+
+function loadNotebook() {
+  try {
+    return JSON.parse(localStorage.getItem("ionLabNotebook") || "[]");
+  } catch (_error) {
+    return [];
+  }
+}
+
+function renderPublicationNotebook() {
+  generatePublication();
+  renderNotebook();
+  renderUncertainty();
+}
+
+function runGrandComparison() {
+  const ions = parseNameList(document.querySelector("#grandIons").value, elementBySymbol);
+  const materials = parseNameList(document.querySelector("#grandMaterials").value, materialByName);
+  const ionSet = ions.length ? ions : braggComparisonIons.filter((symbol) => elementBySymbol.has(symbol));
+  const materialSet = materials.length ? materials : db.materials.slice(0, 6).map((material) => material.name);
+  const records = [];
+  for (const ion of ionSet) {
+    for (const materialName of materialSet) {
+      const result = calculate({ element: elementBySymbol.get(ion), mass: elementBySymbol.get(ion).atomic_mass, material: materialByName.get(materialName) });
+      records.push({
+        ion,
+        material: materialName,
+        range: result.range,
+        letValue: result.letValue,
+        dpa: result.dpa,
+        hardness: radiationHardnessScore(materialByName.get(materialName)),
+        damage: materialDamageScore(result),
+      });
+    }
+  }
+  drawHeatmap(document.querySelector("#grandHeatmap"), records, ionSet, materialSet);
+  renderTable(document.querySelector("#grandTable"), ["Ion", "Material", "Range nm", "LET", "DPA", "Hardness score", "Damage score"], records.sort((a, b) => a.damage - b.damage).map((record) => [
+    record.ion,
+    record.material,
+    formatNumber(record.range, 2),
+    formatNumber(record.letValue, 4),
+    record.dpa.toExponential(3),
+    record.hardness.toFixed(1),
+    record.damage.toFixed(2),
+  ]));
+}
+
+function drawHeatmap(canvas, records, ions, materials) {
+  const sized = resizeCanvas(canvas);
+  if (!sized) return;
+  const { context, width, height } = sized;
+  context.fillStyle = "#07111f";
+  context.fillRect(0, 0, width, height);
+  context.fillStyle = "#dff8ff";
+  context.font = "12px Inter, sans-serif";
+  context.fillText("Grand Comparison Damage Score Heatmap", 14, 20);
+  const padLeft = 118;
+  const padTop = 52;
+  const cellWidth = Math.max(18, (width - padLeft - 18) / Math.max(ions.length, 1));
+  const cellHeight = Math.max(22, (height - padTop - 34) / Math.max(materials.length, 1));
+  const maxDamage = Math.max(...records.map((record) => record.damage), 1e-9);
+  materials.forEach((material, row) => {
+    context.fillStyle = "#9db6c8";
+    context.fillText(material.slice(0, 17), 12, padTop + row * cellHeight + cellHeight * 0.62);
+  });
+  ions.forEach((ion, column) => {
+    context.fillStyle = "#9db6c8";
+    context.fillText(ion, padLeft + column * cellWidth + 4, 41);
+  });
+  for (const record of records) {
+    const column = ions.indexOf(record.ion);
+    const row = materials.indexOf(record.material);
+    const intensity = record.damage / maxDamage;
+    const red = Math.round(50 + 205 * intensity);
+    const green = Math.round(200 - 130 * intensity);
+    const blue = Math.round(255 - 190 * intensity);
+    context.fillStyle = `rgb(${red}, ${green}, ${blue})`;
+    context.fillRect(padLeft + column * cellWidth, padTop + row * cellHeight, cellWidth - 2, cellHeight - 2);
+    context.fillStyle = intensity > 0.55 ? "#07111f" : "#dff8ff";
+    context.font = "10px Inter, sans-serif";
+    context.fillText(record.damage.toFixed(1), padLeft + column * cellWidth + 4, padTop + row * cellHeight + cellHeight * 0.62);
+  }
+}
+
+function renderFacilityPresets() {
+  const selectedName = document.querySelector("#facilitySelect").value || db.facilities[0]?.name;
+  const facility = db.facilities.find((entry) => entry.name === selectedName) || db.facilities[0];
+  if (!facility) return;
+  const energyMev = currentResult.energy / 1000;
+  const range = facility.energy_range_mev || [0, facility.maximum_energy_mev || 0];
+  const currents = facility.current_limits_na || [0, Infinity];
+  const ionOk = (facility.available_ions || []).includes(currentResult.element.symbol);
+  const energyOk = energyMev >= range[0] && energyMev <= range[1];
+  const currentOk = currentResult.beamCurrentNa >= currents[0] && currentResult.beamCurrentNa <= currents[1];
+  renderTable(document.querySelector("#facilityTable"), ["Field", "Value"], [
+    ["Name", facility.name],
+    ["Type", facility.type],
+    ["Energy range", `${range[0]}-${range[1]} MeV`],
+    ["Available ions", (facility.available_ions || []).join(", ")],
+    ["Current range", `${currents[0]}-${currents[1]} nA`],
+    ["Selected ion", `${currentResult.element.symbol} (${ionOk ? "supported" : "not in preset"})`],
+    ["Selected energy", `${energyMev.toFixed(3)} MeV (${energyOk ? "in range" : "outside range"})`],
+    ["Estimated current", `${currentResult.beamCurrentNa.toExponential(3)} nA/cm^2 (${currentOk ? "in range" : "outside range"})`],
+  ]);
+}
+
+function parseSrimRows(text) {
+  return text.split(/\r?\n/)
+    .map((line) => line.trim().replaceAll(",", " "))
+    .filter((line) => line && !line.startsWith("#"))
+    .map((line) => line.split(/\s+/).map(Number).filter(Number.isFinite))
+    .filter((values) => values.length >= 4)
+    .map((values) => ({ energy: values[0], electronic: values[1], nuclear: values[2], range: values[3] }));
+}
+
+function compareSrimRows() {
+  const rows = parseSrimRows(document.querySelector("#srimText").value);
+  if (!rows.length) {
+    renderTable(document.querySelector("#srimTable"), ["Status"], [["No numeric rows found"]]);
+    return;
+  }
+  const nearest = rows.reduce((best, row) => Math.abs(row.range - currentResult.range) < Math.abs(best.range - currentResult.range) ? row : best, rows[0]);
+  const rangeError = 100 * (currentResult.range - nearest.range) / Math.max(nearest.range, 1e-9);
+  renderTable(document.querySelector("#srimTable"), ["Energy keV", "SRIM Se", "SRIM Sn", "SRIM range nm", "Simulator range nm", "Range error %"], rows.map((row) => [
+    formatNumber(row.energy, 2),
+    formatNumber(row.electronic, 4),
+    formatNumber(row.nuclear, 4),
+    formatNumber(row.range, 2),
+    row === nearest ? formatNumber(currentResult.range, 2) : "",
+    row === nearest ? formatNumber(rangeError, 2) : "",
+  ]));
+}
+
 function downloadFile(filename, content, type = "text/plain") {
   const blob = new Blob([content], { type });
   const url = URL.createObjectURL(blob);
@@ -700,6 +1436,7 @@ function exportReport() {
     `Fluence: ${result.fluence.toExponential(4)} ions/cm^2`,
     `Range: ${result.range.toFixed(4)} nm`,
     `LET: ${result.letValue.toFixed(6)} keV/nm`,
+    `Beam current: ${result.beamCurrentNa.toExponential(6)} nA/cm^2`,
     `Electronic deposited energy: ${result.electronicDeposited.toFixed(6)} keV`,
     `Nuclear deposited energy: ${result.nuclearDeposited.toFixed(6)} keV`,
     `Vacancies per ion: ${result.vacancies.toExponential(6)}`,
@@ -718,7 +1455,7 @@ function serializableResult(result) {
     ion: result.element,
     material: result.material,
     parameters: { charge: result.charge, mass: result.mass, energy: result.energy, fluence: result.fluence, time: result.time, letInput: result.letInput, angle: result.angle, spread: result.spread, intensity: result.intensity },
-    outputs: { range: result.range, let: result.letValue, se: result.se, sn: result.sn, electronicDeposited: result.electronicDeposited, nuclearDeposited: result.nuclearDeposited, vacancies: result.vacancies, interstitials: result.interstitials, secondaryElectrons: result.secondaryElectrons, defectDensity: result.defectDensity, dpa: result.dpa, temperature: result.temperature, thermalSpike: result.thermalSpike, sputter: result.sputter, velocity: result.velocity },
+    outputs: { range: result.range, let: result.letValue, se: result.se, sn: result.sn, electronicDeposited: result.electronicDeposited, nuclearDeposited: result.nuclearDeposited, vacancies: result.vacancies, interstitials: result.interstitials, secondaryElectrons: result.secondaryElectrons, defectDensity: result.defectDensity, dpa: result.dpa, temperature: result.temperature, thermalSpike: result.thermalSpike, sputter: result.sputter, velocity: result.velocity, beamCurrentNa: result.beamCurrentNa },
     profile: result.profile,
   };
 }
@@ -863,6 +1600,23 @@ function addLog(message) {
   while (document.querySelector("#log").children.length > 10) document.querySelector("#log").lastChild.remove();
 }
 
+function renderActiveTab(tab) {
+  if (!tab || !currentResult) return;
+  if (tab === "graphs") renderCharts();
+  if (tab === "history") renderHistory();
+  if (tab === "database-explorer") renderDatabaseExplorer();
+  if (tab === "material-explorer") renderMaterialExplorer();
+  if (tab === "crystal-bragg") renderCrystalBragg();
+  if (tab === "multilayer-evolution") renderMultilayerEvolution();
+  if (tab === "radiation-ai") renderRadiationAiLab();
+  if (tab === "publication-notebook") renderPublicationNotebook();
+  if (tab === "grand-comparison") runGrandComparison();
+  if (tab === "facility-srim") {
+    renderFacilityPresets();
+    compareSrimRows();
+  }
+}
+
 function bindEvents() {
   Object.values(controls).forEach((control) => control.addEventListener("input", () => {
     if (control === controls.ion) {
@@ -876,9 +1630,7 @@ function bindEvents() {
   document.querySelectorAll(".tab-bar button").forEach((button) => button.addEventListener("click", () => {
     document.querySelectorAll(".tab-bar button").forEach((item) => item.classList.toggle("active", item === button));
     document.querySelectorAll(".tab-view").forEach((view) => view.classList.toggle("active", view.id === button.dataset.tab));
-    if (button.dataset.tab === "graphs") renderCharts();
-    if (button.dataset.tab === "history") renderHistory();
-    if (button.dataset.tab === "database-explorer") renderDatabaseExplorer();
+    renderActiveTab(button.dataset.tab);
   }));
 
   document.querySelector("#run").addEventListener("click", () => {
@@ -902,6 +1654,23 @@ function bindEvents() {
   document.querySelector("#runIonComparison").addEventListener("click", runIonComparison);
   document.querySelector("#learningLevel").addEventListener("input", renderLearning);
   document.querySelector("#runSweep").addEventListener("click", runSweep);
+  document.querySelector("#materialExplorerQuery").addEventListener("input", renderMaterialExplorer);
+  document.querySelector("#materialExplorerClass").addEventListener("input", renderMaterialExplorer);
+  document.querySelector("#materialExplorerSort").addEventListener("input", renderMaterialExplorer);
+  document.querySelector("#materialExplorerRadiation").addEventListener("input", renderMaterialExplorer);
+  document.querySelector("#crystalState").addEventListener("input", renderCrystalBragg);
+  document.querySelector("#runBragg").addEventListener("click", renderCrystalBragg);
+  document.querySelector("#runMultilayer").addEventListener("click", renderMultilayerEvolution);
+  document.querySelector("#runAnneal").addEventListener("click", renderAnnealing);
+  document.querySelector("#runHardnessRanking").addEventListener("click", renderHardnessRanking);
+  document.querySelector("#runRecommend").addEventListener("click", runRecommendation);
+  document.querySelector("#recommendGoal").addEventListener("input", runRecommendation);
+  document.querySelector("#runReverse").addEventListener("click", runReverseEngineering);
+  document.querySelector("#generatePublication").addEventListener("click", generatePublication);
+  document.querySelector("#addNotebook").addEventListener("click", addNotebookEntry);
+  document.querySelector("#runGrandComparison").addEventListener("click", runGrandComparison);
+  document.querySelector("#facilitySelect").addEventListener("input", renderFacilityPresets);
+  document.querySelector("#compareSrim").addEventListener("click", compareSrimRows);
   document.querySelector("#clearHistory").addEventListener("click", () => {
     experimentHistory = [];
     persistHistory();
@@ -918,6 +1687,7 @@ function bindEvents() {
   document.querySelector("#loadSession").addEventListener("change", loadSessionFile);
   window.addEventListener("resize", () => {
     renderCharts();
+    renderActiveTab(document.querySelector(".tab-view.active")?.id);
     particles = particles.slice(-30);
   });
 }

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from http.server import ThreadingHTTPServer
 from pathlib import Path
 
 
@@ -14,9 +14,12 @@ PORT = int(os.environ.get("PORT", os.environ.get("ION_LAB_PORT", "8000")))
 
 def main() -> None:
     os.chdir(ROOT)
-    server = ThreadingHTTPServer((HOST, PORT), SimpleHTTPRequestHandler)
+    from lab_server import LabRequestHandler
+
+    server = ThreadingHTTPServer((HOST, PORT), LabRequestHandler)
     print("Ion Beam Irradiation Laboratory web server")
     print(f"Local URL: http://127.0.0.1:{PORT}/website/")
+    print(f"Python API: http://127.0.0.1:{PORT}/api/health")
     print("In GitHub Codespaces, open the forwarded port and append /website/.")
     print("Press Ctrl+C to stop.")
     try:
